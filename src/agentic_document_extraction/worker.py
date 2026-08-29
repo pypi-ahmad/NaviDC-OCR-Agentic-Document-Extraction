@@ -21,6 +21,7 @@ CONFIG.update(
     ]
 )
 
+import NaviOCR.src.vlm_analyze as vlm_analyze  # noqa: E402
 from NaviOCR.engine import aio_do_parse  # noqa: E402
 from NaviOCR.src.vlm_middle_json_mkcontent import union_make  # noqa: E402
 
@@ -29,9 +30,14 @@ _extraction_lock = asyncio.Lock()
 
 
 @app.get("/health")
-async def health() -> dict[str, str]:
+async def health() -> dict[str, str | int]:
     """Report worker readiness and the configured NaviDC model."""
-    return {"status": "ready", "provider": "NaviDC-OCR", "model": CONFIG.model_path}
+    return {
+        "status": "ready",
+        "provider": "NaviDC-OCR",
+        "model": CONFIG.model_path,
+        "max_render_dpi": 400,
+    }
 
 
 @app.post("/extract")
@@ -39,6 +45,7 @@ async def extract(
     document: UploadFile,
     source_pages: str = Form(...),
     layout_mode: str = Form("Detection"),
+    render_dpi: int = Form(300),
 ) -> Response:
     """Run OCR for an uploaded page-selected PDF.
 
@@ -56,6 +63,8 @@ async def extract(
     """
     if layout_mode not in {"Detection", "Segmentation"}:
         raise HTTPException(status_code=422, detail="Choose Detection or Segmentation layout mode.")
+    if render_dpi not in {200, 300, 400}:
+        raise HTTPException(status_code=422, detail="Render DPI must be 200, 300, or 400.")
     try:
         page_numbers = json.loads(source_pages)
         if (
@@ -73,7 +82,7 @@ async def extract(
     async with _extraction_lock:
         CONFIG.LAYOUT_MODE = layout_mode
         try:
-            archive = await _run_extraction(pdf_bytes, page_numbers)
+            archive = await _run_extraction(pdf_bytes, page_numbers, render_dpi)
         except Exception as exc:
             raise HTTPException(
                 status_code=500,
@@ -84,10 +93,20 @@ async def extract(
     return Response(archive, media_type="application/zip")
 
 
-async def _run_extraction(pdf_bytes: bytes, page_numbers: list[int]) -> bytes:
+async def _run_extraction(pdf_bytes: bytes, page_numbers: list[int], render_dpi: int) -> bytes:
     with tempfile.TemporaryDirectory(prefix="navidc-") as temporary:
         output_root = Path(temporary)
-        results = await aio_do_parse(str(output_root), ["document"], [pdf_bytes], [None])
+        original_loader = vlm_analyze.load_images_from_pdf
+
+        def load_at_requested_dpi(*args: object, **kwargs: object) -> object:
+            kwargs["dpi"] = render_dpi
+            return original_loader(*args, **kwargs)
+
+        vlm_analyze.load_images_from_pdf = load_at_requested_dpi
+        try:
+            results = await aio_do_parse(str(output_root), ["document"], [pdf_bytes], [None])
+        finally:
+            vlm_analyze.load_images_from_pdf = original_loader
         result_dir = output_root / "document"
         middle = results[0]
         pages = middle.get("pdf_info", [])

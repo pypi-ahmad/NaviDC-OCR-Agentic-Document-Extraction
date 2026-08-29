@@ -1,16 +1,22 @@
 from __future__ import annotations
 
-import base64
 import html
 import io
 import json
+import re
 import zipfile
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
+from html.parser import HTMLParser
 from pathlib import PurePosixPath
 from typing import Any
 
-from .documents import render_pdf_pages, safe_stem
+from markdown_it import MarkdownIt
+
+from .documents import safe_stem
+
+_HTML_TABLE_PATTERN = re.compile(r"<table\b[^>]*>.*?</table>", re.IGNORECASE | re.DOTALL)
+_PAGE_MARKER_PATTERN = re.compile(r"<!--\s*Page\s+(\d+)\s*-->", re.IGNORECASE)
 
 
 @dataclass(frozen=True, slots=True)
@@ -47,6 +53,15 @@ class BundleInput:
     annotated_pdf: bytes
     html: bytes
     images: dict[str, bytes] = field(default_factory=dict)
+    structured_json: bytes | None = None
+    schema_json: bytes | None = None
+    quality_json: bytes | None = None
+    review_json: bytes | None = None
+    field_guide: bytes | None = None
+    semantic_model: str | None = None
+    reasoning_effort: str | None = None
+    schema_hash: str | None = None
+    accuracy_policy: str | None = None
     generated_at: datetime = field(default_factory=lambda: datetime.now(UTC))
 
 
@@ -78,17 +93,33 @@ def build_manifest(item: BundleInput) -> dict[str, Any]:
         Manifest mapping suitable for JSON serialization.
     """
     names = artifact_names(item.source_filename)
+    artifacts = {key: names[key] for key in ("markdown", "annotated_pdf", "html")}
+    for key, filename, content in (
+        ("structured_extraction", "extraction.json", item.structured_json),
+        ("schema", "schema.json", item.schema_json),
+        ("quality_report", "quality-report.json", item.quality_json),
+        ("review_audit", "review-audit.json", item.review_json),
+        ("field_guide", "field-guide.md", item.field_guide),
+    ):
+        if content is not None:
+            artifacts[key] = filename
     return {
         "source_filename": item.source_filename,
         "source_type": item.source_type,
         "source_sha256": item.source_sha256,
         "selected_page_range": {"start": item.start_page, "end": item.end_page},
         "total_source_page_count": item.total_source_pages,
-        "artifacts": {key: names[key] for key in ("markdown", "annotated_pdf", "html")},
+        "artifacts": artifacts,
         "generated_at": item.generated_at.astimezone(UTC).isoformat(),
         "ocr_provider": item.provider,
         "ocr_model": item.provider_model,
         "layout_mode": item.layout_mode,
+        "accuracy_policy": item.accuracy_policy,
+        "structured_extraction": {
+            "model": item.semantic_model,
+            "reasoning_effort": item.reasoning_effort,
+            "schema_hash": item.schema_hash,
+        },
     }
 
 
@@ -108,6 +139,16 @@ def build_bundle(item: BundleInput) -> bytes:
         archive.writestr(names["annotated_pdf"], item.annotated_pdf)
         archive.writestr(names["html"], item.html)
         archive.writestr("manifest.json", json.dumps(build_manifest(item), indent=2) + "\n")
+        optional = {
+            "extraction.json": item.structured_json,
+            "schema.json": item.schema_json,
+            "quality-report.json": item.quality_json,
+            "review-audit.json": item.review_json,
+            "field-guide.md": item.field_guide,
+        }
+        for name, content in optional.items():
+            if content is not None:
+                archive.writestr(name, content)
         for name, content in sorted(item.images.items()):
             clean_name = PurePosixPath(name).name
             if clean_name:
@@ -115,68 +156,147 @@ def build_bundle(item: BundleInput) -> bytes:
     return output.getvalue()
 
 
-def build_original_style_html(
-    pdf_bytes: bytes, middle_json: dict[str, Any], source_pages: list[int], title: str
-) -> bytes:
-    """Create a standalone visual document with selectable OCR overlays.
+def build_html(markdown: str, title: str) -> bytes:
+    """Convert extracted Markdown into a safe, standalone document view.
 
-    The rendered source pages are embedded as data URLs. OCR text and labels
-    are HTML-escaped before insertion, and the document includes a restrictive
-    Content Security Policy.
-
-    Args:
-        pdf_bytes: Selected source pages as a PDF.
-        middle_json: NaviDC intermediate data containing page sizes and blocks.
-        source_pages: Original one-based page number for each selected page.
-        title: Human-readable document title.
-
-    Returns:
-        UTF-8 encoded standalone HTML.
+    Page markers become visible document sections. NaviDC HTML tables are
+    normalized to Markdown tables, while other raw provider HTML is escaped.
+    The source PDF and its page images are intentionally not embedded.
     """
-    page_images = render_pdf_pages(pdf_bytes)
-    page_info = middle_json.get("pdf_info", [])
+    renderer = MarkdownIt("commonmark", {"html": False, "linkify": False}).enable("table")
+    parts = _PAGE_MARKER_PATTERN.split(markdown)
     sections: list[str] = []
-    for index, image_bytes in enumerate(page_images):
-        info = (
-            page_info[index]
-            if index < len(page_info) and isinstance(page_info[index], dict)
-            else {}
-        )
-        size = info.get("page_size") or [1, 1]
-        width, height = _positive_float(size, 0), _positive_float(size, 1)
-        overlays = "".join(
-            _block_overlay(block, width, height) for block in info.get("para_blocks", [])
-        )
-        page_number = source_pages[index] if index < len(source_pages) else index + 1
-        encoded = base64.b64encode(image_bytes).decode("ascii")
+    if parts[0].strip():
+        content = renderer.render(markdown_for_display(parts[0]))
+        sections.append(f'<section class="page">{content}</section>')
+    for index in range(1, len(parts), 2):
+        page_number = int(parts[index])
+        source = parts[index + 1] if index + 1 < len(parts) else ""
+        content = renderer.render(markdown_for_display(source))
         sections.append(
-            f'<section class="page" aria-label="Source page {page_number}">'
-            f'<img src="data:image/jpeg;base64,{encoded}" alt="Scanned source page {page_number}">'
-            f'<div class="overlay">{overlays}</div>'
-            f'<span class="page-number">Page {page_number}</span>'
-            "</section>"
+            f'<section class="page" aria-label="Page {page_number}">'
+            f'<div class="page-label">Page {page_number}</div>{content}</section>'
         )
+    if not sections:
+        sections.append('<section class="page"><p>No extracted content.</p></section>')
     safe_title = html.escape(title)
     document = f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy"
- content="default-src 'none'; img-src data:; style-src 'unsafe-inline'">
+ content="default-src 'none'; style-src 'unsafe-inline'">
 <title>{safe_title}</title><style>
-:root {{ color-scheme: light; font-family: Inter, ui-sans-serif, system-ui, sans-serif; }}
-body {{ margin: 0; padding: 32px 16px; background: #eeeae2; color: #292720; }}
-header {{ max-width: 1000px; margin: 0 auto 18px; }} h1 {{ font-size: 18px; margin: 0; }}
-.page {{ position: relative; max-width: 1000px; margin: 0 auto 28px; background: white;
- box-shadow: 0 8px 28px #29272024; }}
-.page img {{ display: block; width: 100%; height: auto; }}
-.overlay {{ position: absolute; inset: 0; }}
-.region {{ position: absolute; color: transparent; white-space: pre-wrap; overflow: hidden;
- line-height: 1.15; user-select: text; }}
-.region:hover {{ outline: 2px solid #e59b45; background: #e59b451a; }}
-.page-number {{ position: absolute; right: 10px; bottom: 8px; background: #292720c9;
- color: white; padding: 3px 7px; border-radius: 4px; font-size: 11px; }}
+:root {{ color-scheme: dark; font-family: Inter, ui-sans-serif, system-ui, sans-serif; }}
+* {{ box-sizing: border-box; }}
+body {{ margin: 0; padding: 32px 18px 64px; background: #111216; color: #e9e8f4; }}
+header, .page {{ max-width: 920px; margin-left: auto; margin-right: auto; }}
+header {{ margin-bottom: 18px; color: #a5f3fc; }} header h1 {{ font-size: 18px; margin: 0; }}
+.page {{ position: relative; margin-bottom: 24px; padding: 54px 64px 64px; background: #1b1935;
+ border: 1px solid #38345f; border-radius: 10px; box-shadow: 0 12px 35px #0006; }}
+.page-label {{ position: absolute; top: 18px; right: 22px; color: #f472b6; font-size: 12px;
+ font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }}
+h1, h2, h3, h4 {{ color: #f9a8d4; line-height: 1.2; }} p, li {{ line-height: 1.62; }}
+a {{ color: #22d3ee; }}
+table {{ width: 100%; border-collapse: collapse; margin: 22px 0; font-size: 14px; }}
+th, td {{ border: 1px solid #55517d; padding: 9px 11px; text-align: left; vertical-align: top; }}
+th {{ background: #29264a; color: #f9a8d4; }} tr:nth-child(even) {{ background: #211f3e; }}
+blockquote {{ margin-left: 0; padding-left: 18px; border-left: 3px solid #ec4899; color: #c9c7da; }}
+code {{ background: #11121f; padding: .15em .35em; border-radius: 4px; }}
+pre {{ overflow-x: auto; padding: 16px; background: #11121f; border-radius: 7px; }}
+hr {{ border: 0; border-top: 1px solid #48446c; margin: 28px 0; }}
+@media (max-width: 680px) {{ body {{ padding: 12px; }} .page {{ padding: 44px 22px 30px; }} }}
+@media print {{ body {{ background: white; color: black; padding: 0; }} header {{ display: none; }}
+ .page {{ color: black; background: white; border: 0; box-shadow: none;
+  page-break-after: always; }} }}
 </style></head><body><header><h1>{safe_title}</h1></header>{"".join(sections)}</body></html>"""
     return document.encode("utf-8")
+
+
+def markdown_for_display(markdown: str) -> str:
+    """Convert provider HTML tables and page markers to safe GFM for display.
+
+    The provider's original Markdown remains unchanged for raw viewing and
+    downloads. This function avoids enabling unsafe HTML in Streamlit while
+    still rendering common NaviDC table output as Markdown tables.
+
+    Args:
+        markdown: Raw provider Markdown.
+
+    Returns:
+        Display-only GitHub Flavored Markdown without raw table elements.
+    """
+
+    def replace_table(match: re.Match[str]) -> str:
+        parser = _TableParser()
+        parser.feed(match.group(0))
+        parser.close()
+        return parser.as_markdown()
+
+    rendered = _HTML_TABLE_PATTERN.sub(replace_table, markdown)
+    rendered = _PAGE_MARKER_PATTERN.sub(r"\n\n---\n\n#### Page \1\n", rendered)
+    return rendered.strip()
+
+
+class _TableParser(HTMLParser):
+    """Parse a provider HTML table into a small row-and-cell representation."""
+
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.rows: list[list[str]] = []
+        self._row: list[str] | None = None
+        self._cell_parts: list[str] | None = None
+        self._colspan = 1
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        tag = tag.lower()
+        if tag == "tr":
+            self._row = []
+        elif tag in {"td", "th"} and self._row is not None:
+            self._cell_parts = []
+            attributes = dict(attrs)
+            try:
+                self._colspan = max(1, int(attributes.get("colspan", "1") or "1"))
+            except ValueError:
+                self._colspan = 1
+        elif tag == "br" and self._cell_parts is not None:
+            self._cell_parts.append(" ")
+
+    def handle_data(self, data: str) -> None:
+        if self._cell_parts is not None:
+            self._cell_parts.append(data)
+
+    def handle_endtag(self, tag: str) -> None:
+        tag = tag.lower()
+        if tag in {"td", "th"} and self._row is not None and self._cell_parts is not None:
+            cell = _markdown_table_cell("".join(self._cell_parts))
+            self._row.append(cell)
+            self._row.extend([""] * (self._colspan - 1))
+            self._cell_parts = None
+            self._colspan = 1
+        elif tag == "tr" and self._row is not None:
+            if self._row:
+                self.rows.append(self._row)
+            self._row = None
+
+    def as_markdown(self) -> str:
+        """Render parsed rows as a rectangular GFM table."""
+        if not self.rows:
+            return ""
+        column_count = max(len(row) for row in self.rows)
+        rows = [row + [""] * (column_count - len(row)) for row in self.rows]
+        header = rows[0]
+        separator = ["---"] * column_count
+        lines = [_markdown_row(header), _markdown_row(separator)]
+        lines.extend(_markdown_row(row) for row in rows[1:])
+        return "\n\n" + "\n".join(lines) + "\n\n"
+
+
+def _markdown_table_cell(value: str) -> str:
+    return " ".join(value.split()).replace("|", r"\|")
+
+
+def _markdown_row(cells: list[str]) -> str:
+    return "| " + " | ".join(cells) + " |"
 
 
 def _positive_float(values: Any, index: int) -> float:

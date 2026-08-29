@@ -69,7 +69,7 @@ Use each result tab:
 - **Rendered Markdown** checks headings, paragraphs, and reading order.
 - **Raw Markdown** shows the exact downloadable text and source-page marker.
 - **Annotated PDF** shows detected regions and reading order.
-- **Original-style HTML** preserves the scan visually and adds selectable OCR text.
+- **HTML** renders the extracted Markdown as a standalone, document-styled view.
 
 If a tab does not appear, follow the [operations runbook](operations-runbook.md#troubleshooting).
 

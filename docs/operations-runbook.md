@@ -127,7 +127,7 @@ Results are session-scoped. They are cleared when the uploaded file, page range,
 
 ### HTML text alignment is imperfect
 
-The HTML artifact uses the original page raster as its visual layer and NaviDC bounding boxes for selectable transparent text. Alignment depends on the model coordinates. The annotated PDF is the preferred diagnostic artifact.
+The HTML artifact renders extracted Markdown in reading order and does not reproduce exact source coordinates. Use the annotated PDF to diagnose layout regions and bounding boxes.
 
 ## Configuration reference
 

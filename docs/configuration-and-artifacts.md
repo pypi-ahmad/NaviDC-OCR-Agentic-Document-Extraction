@@ -74,16 +74,15 @@ The number refers to the page in the original source, not the selected PDF's tem
 
 NaviDC draws layout annotations on the selected source pages. Available labels, boxes, and order markers come from actual provider output.
 
-## Original-style HTML
+## HTML
 
-The HTML file is self-contained:
+The HTML file is self-contained and renders the extracted Markdown as structured content:
 
-- Each selected page is embedded as a base64 JPEG.
-- OCR text is positioned using percentage coordinates derived from NaviDC bounding boxes.
-- Text is transparent but selectable; hovering outlines a region.
-- OCR content and labels are HTML-escaped.
+- Markdown headings, paragraphs, lists, and tables become semantic HTML.
+- NaviDC page markers create distinct document-style page sections.
+- OCR content is HTML-escaped before rendering.
 - No JavaScript or external asset request is required.
-- A Content Security Policy permits only embedded images and inline styles.
+- A restrictive Content Security Policy permits only inline styles.
 
 ## Bundle layout
 

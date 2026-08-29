@@ -41,7 +41,7 @@ Use the artifacts in this order:
 
 1. **Annotated PDF:** Check whether the correct regions and reading order were detected.
 2. **Raw Markdown:** Check exact text, table markup, and `<!-- Page N -->` boundaries.
-3. **Original-style HTML:** Compare OCR text coordinates with the original page image.
+3. **HTML:** Check the extracted reading order, headings, tables, and page boundaries.
 4. **Manifest:** Confirm the intended range and layout mode were used.
 
 If the annotated region is wrong, the problem is usually layout detection. If the region is correct but the text is wrong, improve scan clarity or resolution.

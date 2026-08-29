@@ -67,7 +67,7 @@ The worker is the only application module that imports `NaviOCR`. Its configurat
 
 `BundleInput` is the complete input to final packaging. `build_bundle()` owns archive layout and `build_manifest()` owns manifest fields.
 
-`build_original_style_html()` must continue to escape OCR text. Do not insert model-produced HTML directly into the standalone document or Streamlit.
+`build_html()` must continue to escape untrusted OCR HTML. Do not enable raw model-produced HTML in the standalone document or Streamlit.
 
 ### Session state
 

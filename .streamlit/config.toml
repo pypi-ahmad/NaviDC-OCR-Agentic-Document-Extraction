@@ -10,14 +10,24 @@ showErrorDetails = "none"
 gatherUsageStats = false
 
 [theme]
-base = "light"
-primaryColor = "#B9682E"
-backgroundColor = "#F7F4ED"
-secondaryBackgroundColor = "#EDE7DB"
-textColor = "#28251F"
-borderColor = "#D8CEBE"
+base = "dark"
+primaryColor = "#AD1457"
+backgroundColor = "#111318"
+secondaryBackgroundColor = "#1B1D3A"
+textColor = "#F3F4FA"
+linkColor = "#22D3EE"
+codeBackgroundColor = "#0D0F18"
+borderColor = "#353861"
 showWidgetBorder = true
+showSidebarBorder = true
 baseRadius = "medium"
 buttonRadius = "medium"
 font = "sans-serif"
 headingFont = "sans-serif"
+
+[theme.sidebar]
+backgroundColor = "#16182F"
+secondaryBackgroundColor = "#22254A"
+textColor = "#F3F4FA"
+primaryColor = "#AD1457"
+borderColor = "#353861"

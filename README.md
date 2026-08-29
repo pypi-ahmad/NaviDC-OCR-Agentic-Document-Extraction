@@ -32,8 +32,12 @@ bundle—without sending document content to a cloud OCR service.
 - Uses `StarDoc-AI/NaviDC-OCR` for context- and layout-aware extraction.
 - Preserves headings, paragraphs, lists, tables, key-value content, and page
   boundaries where the model supports them.
-- Shows the source, rendered and raw Markdown, annotated PDF, and visual HTML.
+- Shows the source, rendered and raw Markdown, annotated PDF, and HTML.
 - Packages artifacts, extracted images, provenance, and settings in one ZIP.
+- Builds or imports extraction schemas, grounds every non-null field to OCR evidence,
+  validates formats and cross-field rules, and supports a session-scoped review audit.
+- Uses `gpt-5.6-luna` with medium reasoning for semantic field extraction and at most
+  two evidence-only correction passes; OCR itself remains local.
 - Keeps uploads and request intermediates temporary and local.
 - Fails clearly when NaviDC-OCR is unavailable; it never fabricates OCR output.
 
@@ -84,10 +88,12 @@ can take several minutes; later requests reuse the loaded worker.
 
 1. Upload a supported PDF or image from the sidebar.
 2. For a PDF, choose inclusive start and end pages.
-3. Keep **Detection** selected for the first attempt.
-4. Select **Extract document** and wait for all artifact stages to complete.
-5. Review the annotated PDF and raw Markdown against the source.
-6. Download the ZIP bundle before changing the file, range, or layout mode.
+3. Optional: enable structured extraction, edit or load a schema, and select
+   **Confirm schema**. Leave it disabled for the default OCR-first workflow.
+4. Keep **Maximum** accuracy and **Auto** layout for the most reliable first attempt.
+5. Select **Extract document** and wait for all artifact stages to complete.
+6. Review low-confidence fields, validation issues, annotated PDF, and raw Markdown.
+7. Download the ZIP bundle before changing the file, range, or schema.
 
 Images are treated as one-page documents. For TIFF files, only the first frame
 is processed.
@@ -100,10 +106,14 @@ For difficult scans, see [How to improve extraction accuracy](docs/how-to-improv
 |---|---|---|
 | Markdown | `<source>.md` | Layout-aware text with `<!-- Page N -->` boundaries |
 | Annotated PDF | `<source>_annotated.pdf` | Detected regions, labels, and reading order |
-| Visual HTML | `<source>_view.html` | Embedded source pages with selectable OCR overlays |
+| HTML | `<source>_view.html` | Standalone, document-styled rendering of the extracted Markdown |
 | Bundle | `<source>_extraction_bundle.zip` | All artifacts, `manifest.json`, and extracted images |
 
-The HTML artifact is standalone: it embeds page images, escapes OCR text, uses
+When structured extraction succeeds, the bundle also contains `extraction.json`,
+`schema.json`, `quality-report.json`, and `review-audit.json`. An uploaded field guide
+is included as `field-guide.md`.
+
+The HTML artifact is standalone: it converts extracted Markdown into semantic HTML, escapes OCR text, uses
 no JavaScript, and requires no external assets.
 
 The manifest records the source filename and type, original SHA-256 digest,
@@ -158,6 +168,19 @@ Read the [architecture explanation](docs/architecture.md) and
 
 ### Environment variables
 
+Structured extraction requires the existing user-scoped variables below. The app
+reads them at runtime and never displays or writes their values:
+
+```powershell
+$env:OPENAI_API_KEY    # required
+$env:OPENAI_BASE_URL  # required; must expose gpt-5.6-luna
+```
+
+Only extracted Markdown, the confirmed schema, and the optional field guide are sent
+to this endpoint. Source images and PDFs remain local. If the semantic endpoint is
+unavailable, OCR and its Markdown/PDF/HTML artifacts still complete without fabricated
+structured results.
+
 Defaults work on the configured machine. Override them before launching only
 when the local runtime or provider address differs:
 
@@ -203,8 +226,13 @@ intentionally managed separately.
 │   ├── documents.py                  # Validation, normalization, page selection
 │   ├── provider.py                   # Worker lifecycle and typed HTTP adapter
 │   ├── worker.py                     # FastAPI and NaviDC execution boundary
+│   ├── quality.py                    # Scan assessment and conservative preprocessing
+│   ├── schemas.py                    # Schema templates, builder, and safety limits
+│   ├── grounding.py                  # Field evidence resolution
+│   ├── validation.py                 # Schema and cross-field validation
+│   ├── semantic.py                   # OpenAI extraction/correction/review workflow
 │   └── artifacts.py                  # HTML, manifest, filenames, and ZIP
-├── tests/test_core.py                # Focused deterministic tests
+├── tests/                            # Core and agentic workflow tests
 ├── docs/                             # Tutorials, guides, reference, explanations
 ├── research/                         # Source-grounded research reports
 ├── knowledge-base/                   # Curated NaviDC and LandingAI ADE material

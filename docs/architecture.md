@@ -6,7 +6,7 @@ The application converts a scanned PDF or image into four local artifacts:
 
 1. Layout-aware Markdown
 2. A PDF annotated with OCR regions and reading order
-3. A standalone HTML view with embedded page images and selectable text overlays
+3. A standalone HTML view rendered from the extracted Markdown
 4. A ZIP bundle containing the artifacts, extracted images, and a manifest
 
 The UI is comparable to an agentic document extraction workspace, while all inference remains on the local machine.
@@ -107,5 +107,5 @@ This is a single-user local application. It does not implement authentication, a
 - The worker model configuration is fixed at process startup.
 - The provider API is local and intentionally not a public network API.
 - A failed worker writes no result artifact; there is no synthetic OCR fallback.
-- HTML reconstructs the original appearance with embedded page images and transparent text regions. It is not semantic HTML reconstruction.
+- HTML preserves Markdown structure, tables, reading order, and page boundaries in a document-style view. It does not embed the source PDF.
 - OCR accuracy remains dependent on the source scan and model behavior.

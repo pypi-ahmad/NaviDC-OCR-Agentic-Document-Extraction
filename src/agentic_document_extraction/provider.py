@@ -50,7 +50,11 @@ class OcrProvider(Protocol):
         ...
 
     def extract(
-        self, pdf_bytes: bytes, source_pages: list[int], layout_mode: str
+        self,
+        pdf_bytes: bytes,
+        source_pages: list[int],
+        layout_mode: str,
+        render_dpi: int = 300,
     ) -> ProviderOutput:
         """Extract selected PDF pages and return normalized artifacts."""
         ...
@@ -117,7 +121,11 @@ class NaviDcProvider:
         )
 
     def extract(
-        self, pdf_bytes: bytes, source_pages: list[int], layout_mode: str
+        self,
+        pdf_bytes: bytes,
+        source_pages: list[int],
+        layout_mode: str,
+        render_dpi: int = 300,
     ) -> ProviderOutput:
         """Extract selected PDF pages through the local worker.
 
@@ -139,7 +147,11 @@ class NaviDcProvider:
                 response = client.post(
                     f"{self.base_url}/extract",
                     files={"document": ("document.pdf", pdf_bytes, "application/pdf")},
-                    data={"source_pages": json.dumps(source_pages), "layout_mode": layout_mode},
+                    data={
+                        "source_pages": json.dumps(source_pages),
+                        "layout_mode": layout_mode,
+                        "render_dpi": str(render_dpi),
+                    },
                 )
             if response.status_code != 200:
                 raise ProviderError(_safe_provider_message(response))
@@ -164,17 +176,17 @@ def _start_worker() -> subprocess.Popen[bytes]:
             text=True,
         ).stdout.strip()
         command = (
-            f"cd {runtime!s} && PYTHONPATH={wsl_source!s} .venv/bin/python -m uvicorn "
+            f"cd {runtime!s} && PYTHONUNBUFFERED=1 PYTHONPATH={wsl_source!s} "
+            ".venv/bin/python -m uvicorn "
             f"agentic_document_extraction.worker:app --host 127.0.0.1 --port {port}"
         )
         return subprocess.Popen(
             ["wsl.exe", "-d", "Ubuntu-24.04", "--", "bash", "-lc", command],
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
         )
     environment["PYTHONPATH"] = os.pathsep.join(
         filter(None, [source_dir, environment.get("PYTHONPATH")])
     )
+    environment["PYTHONUNBUFFERED"] = "1"
     return subprocess.Popen(
         [
             f"{runtime}/.venv/bin/python",
@@ -188,8 +200,6 @@ def _start_worker() -> subprocess.Popen[bytes]:
         ],
         cwd=runtime,
         env=environment,
-        stdout=subprocess.DEVNULL,
-        stderr=subprocess.DEVNULL,
     )
 
 

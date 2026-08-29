@@ -8,7 +8,12 @@ from datetime import UTC, datetime
 import pymupdf
 import pytest
 
-from agentic_document_extraction.artifacts import BundleInput, build_bundle
+from agentic_document_extraction.artifacts import (
+    BundleInput,
+    build_bundle,
+    build_html,
+    markdown_for_display,
+)
 from agentic_document_extraction.documents import (
     PageRangeError,
     select_pdf_pages,
@@ -60,6 +65,14 @@ def test_build_bundle_contains_artifacts_assets_and_manifest() -> None:
             annotated_pdf=b"annotated",
             html=b"<!doctype html>",
             images={"figure-1.png": b"image"},
+            structured_json=b'{"record": {}}',
+            schema_json=b'{"type": "object"}',
+            quality_json=b'{"render_dpi": 400}',
+            review_json=b"[]",
+            semantic_model="gpt-5.6-luna",
+            reasoning_effort="medium",
+            schema_hash="schema123",
+            accuracy_policy="Maximum",
             generated_at=generated_at,
         )
     )
@@ -71,6 +84,10 @@ def test_build_bundle_contains_artifacts_assets_and_manifest() -> None:
             "invoice_view.html",
             "manifest.json",
             "images/figure-1.png",
+            "extraction.json",
+            "schema.json",
+            "quality-report.json",
+            "review-audit.json",
         }
         manifest = json.loads(archive.read("manifest.json"))
 
@@ -80,8 +97,52 @@ def test_build_bundle_contains_artifacts_assets_and_manifest() -> None:
     assert manifest["total_source_page_count"] == 7
     assert manifest["ocr_provider"] == "NaviDC-OCR"
     assert manifest["generated_at"] == "2026-08-29T12:30:00+00:00"
-    assert manifest["artifacts"] == {
-        "markdown": "invoice.md",
-        "annotated_pdf": "invoice_annotated.pdf",
-        "html": "invoice_view.html",
+    assert manifest["artifacts"]["structured_extraction"] == "extraction.json"
+    assert manifest["accuracy_policy"] == "Maximum"
+    assert manifest["structured_extraction"] == {
+        "model": "gpt-5.6-luna",
+        "reasoning_effort": "medium",
+        "schema_hash": "schema123",
     }
+
+
+def test_markdown_for_display_converts_html_tables_without_unsafe_html() -> None:
+    raw = (
+        "<!-- Page 2 -->\nBefore\n"
+        '<table border="1"><tr><td colspan="2">Member information</td></tr>'
+        "<tr><td>Name: A | B</td><td>Plan: H&amp;W</td></tr></table>\nAfter"
+    )
+
+    displayed = markdown_for_display(raw)
+
+    assert "#### Page 2" in displayed
+    assert "| Member information |  |" in displayed
+    assert r"| Name: A \| B | Plan: H&W |" in displayed
+    assert "<table" not in displayed
+    assert (
+        displayed.index("Before") < displayed.index("Member information") < displayed.index("After")
+    )
+
+
+def test_build_html_renders_markdown_without_embedding_source_pdf() -> None:
+    raw = (
+        "<!-- Page 2 -->\n# Prior authorization\n\n"
+        '<table><tr><td colspan="2">Member information</td></tr>'
+        "<tr><td>Name</td><td>Tameka</td></tr></table>"
+    )
+
+    document = build_html(raw, "request.pdf · pages 2–2").decode("utf-8")
+
+    assert "<h1>Prior authorization</h1>" in document
+    assert "<table>" in document
+    assert "Member information" in document
+    assert "Page 2" in document
+    assert "data:application/pdf" not in document
+    assert "data:image/" not in document
+
+
+def test_build_html_escapes_unsafe_provider_html() -> None:
+    document = build_html("Hello <script>alert('x')</script>", "Unsafe").decode("utf-8")
+
+    assert "<script>" not in document
+    assert "&lt;script&gt;" in document
