@@ -1,0 +1,23 @@
+{
+  "generated_at": "2026-08-29T13:33:16+05:30",
+  "upstream_code_revision": "2e79d29bf32d4e8997b7cbd2ee619a12bfc8d616",
+  "checkpoint_revision": "c21590c42881b75965e5345530b01e9084fe7a6e",
+  "sources": [
+    {"id":"paper-abstract","url":"https://arxiv.org/abs/2608.12898v2","type":"primary","used_for":["purpose","claims","benchmarks"]},
+    {"id":"paper-html","url":"https://arxiv.org/html/2608.12898v2","type":"primary","used_for":["architecture","data-engine","training"]},
+    {"id":"github-tree","url":"https://github.com/caipeng328/NaviDC-OCR/tree/2e79d29bf32d4e8997b7cbd2ee619a12bfc8d616","type":"primary","used_for":["file-inventory","tests","license-presence"]},
+    {"id":"github-readme","url":"https://github.com/caipeng328/NaviDC-OCR/blob/2e79d29bf32d4e8997b7cbd2ee619a12bfc8d616/README.md","type":"primary","used_for":["setup","benchmarks","declared-license"]},
+    {"id":"github-pyproject","url":"https://github.com/caipeng328/NaviDC-OCR/blob/2e79d29bf32d4e8997b7cbd2ee619a12bfc8d616/pyproject.toml","type":"primary","used_for":["python","dependencies"]},
+    {"id":"github-infer","url":"https://github.com/caipeng328/NaviDC-OCR/blob/2e79d29bf32d4e8997b7cbd2ee619a12bfc8d616/infer.py","type":"primary","used_for":["cli","batching"]},
+    {"id":"github-config","url":"https://github.com/caipeng328/NaviDC-OCR/blob/2e79d29bf32d4e8997b7cbd2ee619a12bfc8d616/NaviOCR/config.py","type":"primary","used_for":["defaults"]},
+    {"id":"github-engine","url":"https://github.com/caipeng328/NaviDC-OCR/blob/2e79d29bf32d4e8997b7cbd2ee619a12bfc8d616/NaviOCR/engine.py","type":"primary","used_for":["pipeline","outputs"]},
+    {"id":"github-analyze","url":"https://github.com/caipeng328/NaviDC-OCR/blob/2e79d29bf32d4e8997b7cbd2ee619a12bfc8d616/NaviOCR/src/vlm_analyze.py","type":"primary","used_for":["page-analysis"]},
+    {"id":"github-client","url":"https://github.com/caipeng328/NaviDC-OCR/blob/2e79d29bf32d4e8997b7cbd2ee619a12bfc8d616/NaviOCR/vlm_utils/NaviOCR_client.py","type":"primary","used_for":["prompts","two-step-flow"]},
+    {"id":"github-model","url":"https://github.com/caipeng328/NaviDC-OCR/blob/2e79d29bf32d4e8997b7cbd2ee619a12bfc8d616/NaviOCR/vlm_utils/NaviOCR_model.py","type":"primary","used_for":["backends","remote-code"]},
+    {"id":"github-read-file","url":"https://github.com/caipeng328/NaviDC-OCR/blob/2e79d29bf32d4e8997b7cbd2ee619a12bfc8d616/NaviOCR/tools/read_file.py","type":"primary","used_for":["input-formats"]},
+    {"id":"github-post","url":"https://github.com/caipeng328/NaviDC-OCR/blob/2e79d29bf32d4e8997b7cbd2ee619a12bfc8d616/NaviOCR/vlm_utils/post_process/__init__.py","type":"primary","used_for":["post-processing"]},
+    {"id":"hf-config","url":"https://huggingface.co/StarDoc-AI/NaviDC-OCR/blob/c21590c42881b75965e5345530b01e9084fe7a6e/config.json","type":"primary","used_for":["checkpoint-architecture"]},
+    {"id":"hf-api","url":"https://huggingface.co/api/models/StarDoc-AI/NaviDC-OCR","type":"primary","used_for":["parameters","languages","license-metadata"]}
+  ],
+  "excluded_secondary_discovery_sources": ["ResearchGate", "Medium", "Quora", "LLM Explorer", "LlamaIndex"]
+}

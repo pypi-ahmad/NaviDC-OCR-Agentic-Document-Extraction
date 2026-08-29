@@ -1,0 +1,109 @@
+openapi: 3.1.0
+info:
+  title: Local NaviDC-OCR provider
+  version: 0.1.0
+  description: >-
+    Loopback-only API used by the Streamlit application. The worker processes
+    one extraction at a time and may load the model during the first request.
+servers:
+  - url: http://127.0.0.1:8742
+    description: Local worker
+paths:
+  /health:
+    get:
+      operationId: health
+      summary: Check worker readiness
+      responses:
+        "200":
+          description: Worker is ready to accept an extraction request.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthResponse"
+              example:
+                status: ready
+                provider: NaviDC-OCR
+                model: StarDoc-AI/NaviDC-OCR
+  /extract:
+    post:
+      operationId: extract
+      summary: Extract an already selected PDF
+      description: >-
+        Runs NaviDC-OCR on a PDF containing only the selected source pages.
+        source_pages maps each submitted page to its original one-based page
+        number and must preserve submitted page order.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - document
+                - source_pages
+              properties:
+                document:
+                  type: string
+                  format: binary
+                  description: Non-empty PDF, at most 100 MB.
+                source_pages:
+                  type: string
+                  description: JSON array of positive one-based source page numbers.
+                  examples:
+                    - "[2, 3, 4]"
+                layout_mode:
+                  type: string
+                  enum:
+                    - Detection
+                    - Segmentation
+                  default: Detection
+      responses:
+        "200":
+          description: Provider result archive.
+          content:
+            application/zip:
+              schema:
+                type: string
+                format: binary
+        "422":
+          description: Multipart fields, page mapping, layout mode, or document failed validation.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: NaviDC-OCR could not complete extraction.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+components:
+  schemas:
+    HealthResponse:
+      type: object
+      required:
+        - status
+        - provider
+        - model
+      properties:
+        status:
+          type: string
+          const: ready
+        provider:
+          type: string
+          const: NaviDC-OCR
+        model:
+          type: string
+          const: StarDoc-AI/NaviDC-OCR
+    ErrorResponse:
+      type: object
+      required:
+        - detail
+      properties:
+        detail:
+          oneOf:
+            - type: string
+            - type: array
+              items:
+                type: object
+                additionalProperties: true

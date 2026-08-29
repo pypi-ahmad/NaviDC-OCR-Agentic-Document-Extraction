@@ -1,0 +1,15 @@
+{
+  "format": "rag-reference-v1",
+  "title": "Agentic document extraction and LandingAI ADE",
+  "research_date": "2026-08-29",
+  "chunks": [
+    {"id":"domain","path":"chunks/01-domain-and-architecture.md","topics":["OCR","IDP","architecture"]},
+    {"id":"capabilities","path":"chunks/02-capabilities-schemas-grounding.md","topics":["Parse","Extract","schema","grounding"]},
+    {"id":"operations","path":"chunks/03-async-errors-operations.md","topics":["jobs","errors","review"]},
+    {"id":"limits","path":"chunks/04-formats-languages-limits.md","topics":["formats","languages","limits"]},
+    {"id":"security","path":"chunks/05-security-privacy-deployment.md","topics":["ZDR","HIPAA","EU","VPC"]},
+    {"id":"comparison","path":"chunks/06-pricing-evaluation-navidc.md","topics":["pricing","evaluation","NaviDC-OCR"]},
+    {"id":"versioning","path":"chunks/07-versioning-and-release-operations.md","topics":["changelog","model versions","release operations","preview"]}
+  ],
+  "sources_file": "sources.json"
+}

@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "collection": "navidc-ocr",
+  "generated_at": "2026-08-29T13:33:16+05:30",
+  "goal": "reference-and-rag",
+  "depth": "thorough",
+  "chunks": [
+    {"id":"navidc-ocr-purpose-model","path":"chunks/01-purpose-model.md","evidence":"verified"},
+    {"id":"navidc-ocr-data-training","path":"chunks/02-data-training.md","evidence":"verified"},
+    {"id":"navidc-ocr-inference-pipeline","path":"chunks/03-inference-pipeline.md","evidence":"verified"},
+    {"id":"navidc-ocr-inputs-outputs","path":"chunks/04-inputs-outputs.md","evidence":"verified"},
+    {"id":"navidc-ocr-runtime-dependencies","path":"chunks/05-runtime-dependencies.md","evidence":"verified"},
+    {"id":"navidc-ocr-integration-risks","path":"chunks/06-integration-risks.md","evidence":"mixed"}
+  ],
+  "counts": {"reference_notes":4,"chunks":6,"primary_sources":15,"research_reports":1},
+  "rerun": {
+    "workflow":"firecrawl-knowledge-base",
+    "topic":"NaviDC-OCR",
+    "repository":"https://github.com/caipeng328/NaviDC-OCR",
+    "search_output":".firecrawl/search-navidc-ocr-scraped.json"
+  }
+}

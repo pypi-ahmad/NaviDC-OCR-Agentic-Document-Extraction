@@ -1,0 +1,19 @@
+{
+  "research_date": "2026-08-29",
+  "knowledge_cutoff": "2026-08-29",
+  "sources": [
+    {"id":"ade-docs","type":"primary","url":"https://docs.landing.ai/ade"},
+    {"id":"ade-changelog","type":"primary","url":"https://docs.landing.ai/ade/ade-changelog"},
+    {"id":"ade-sdk","type":"primary","url":"https://github.com/landing-ai/ade-python"},
+    {"id":"ade-cli","type":"primary","url":"https://github.com/landing-ai/agentic-doc"},
+    {"id":"ade-deep-research","type":"primary-synthesis","local":"../../research/AGENTIC-DOCUMENT-EXTRACTION-LANDINGAI-ADE-DEEP-RESEARCH.md"},
+    {"id":"navidc","type":"primary-synthesis","url":"https://github.com/caipeng328/NaviDC-OCR","local":"../../research/NAVIDC-OCR-RESEARCH.md"}
+  ],
+  "raw_artifacts": {
+    "searches": 8,
+    "search_result_pages": 60,
+    "mapped_urls": 68,
+    "selected_docs_pages": 20,
+    "directory": "../../.firecrawl"
+  }
+}

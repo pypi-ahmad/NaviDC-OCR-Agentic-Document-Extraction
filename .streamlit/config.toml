@@ -1,0 +1,23 @@
+[server]
+port = 8741
+maxUploadSize = 100
+headless = true
+
+[client]
+showErrorDetails = "none"
+
+[browser]
+gatherUsageStats = false
+
+[theme]
+base = "light"
+primaryColor = "#B9682E"
+backgroundColor = "#F7F4ED"
+secondaryBackgroundColor = "#EDE7DB"
+textColor = "#28251F"
+borderColor = "#D8CEBE"
+showWidgetBorder = true
+baseRadius = "medium"
+buttonRadius = "medium"
+font = "sans-serif"
+headingFont = "sans-serif"
