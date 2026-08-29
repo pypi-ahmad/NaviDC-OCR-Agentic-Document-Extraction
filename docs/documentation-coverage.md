@@ -4,12 +4,11 @@
 
 | Area | Coverage | Evidence |
 |---|---:|---|
-| Python application modules | 5/5 | Module responsibilities documented in architecture and developer guide |
-| Public Python classes | 9/9 | Google-style class docstrings |
-| Public Python functions and methods | 19/19 | Google-style docstrings, including errors on fallible boundaries |
+| Python application modules | Covered | Module responsibilities documented in architecture and developer guide |
+| Public Python interfaces | Covered | Docstrings on application and provider boundaries |
 | FastAPI endpoints | 2/2 | Prose reference and OpenAPI 3.1 contract |
 | Configuration surfaces | 3/3 | Streamlit config, environment variables, and fixed worker config |
-| User artifact types | 4/4 | Markdown, annotated PDF, HTML, and ZIP reference |
+| User artifact types | Covered | Base and optional structured bundle entries documented |
 | Diátaxis quadrants | 4/4 | Tutorial, how-to, reference, and explanation pages |
 
 Coverage counts exclude private helpers prefixed with `_`, tests, generated caches, and Streamlit's declarative top-level widget code.

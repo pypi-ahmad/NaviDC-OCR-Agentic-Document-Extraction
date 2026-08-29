@@ -41,9 +41,17 @@ Invoke-RestMethod http://127.0.0.1:8742/health
 ├── src/agentic_document_extraction/
 │   ├── artifacts.py
 │   ├── documents.py
+│   ├── grounding.py
+│   ├── models.py
 │   ├── provider.py
+│   ├── quality.py
+│   ├── schemas.py
+│   ├── semantic.py
+│   ├── validation.py
 │   └── worker.py
-├── tests/test_core.py
+├── tests/
+│   ├── test_agentic.py
+│   └── test_core.py
 ├── docs/
 ├── research/
 └── knowledge-base/
@@ -69,9 +77,18 @@ The worker is the only application module that imports `NaviOCR`. Its configurat
 
 `build_html()` must continue to escape untrusted OCR HTML. Do not enable raw model-produced HTML in the standalone document or Streamlit.
 
+### Quality and structured extraction
+
+`quality.py` owns scan analysis, preprocessing, render DPI, and Auto layout advice.
+`schemas.py` validates templates and user schemas. `semantic.py` may send only OCR
+Markdown, the confirmed schema, and an optional field guide to the configured OpenAI
+endpoint. `grounding.py` and `validation.py` keep evidence and deterministic rules local.
+
 ### Session state
 
-The UI keys an extraction result by source SHA-256, selected range, and layout mode. Changing any of those inputs invalidates the stored result.
+The UI keys an extraction result by source SHA-256, selected range, layout mode,
+accuracy policy, and schema hash (`ocr-only` when disabled). Changing any keyed input
+invalidates the stored result.
 
 ## Add a dependency
 
@@ -119,6 +136,9 @@ Invoke-WebRequest -UseBasicParsing http://127.0.0.1:8741/_stcore/health
 - Acceptance and rejection rules for inclusive page ranges
 - Selected PDF page count and source order
 - ZIP entry composition and manifest values
+
+`tests/test_agentic.py` verifies schema compilation and safety limits, evidence
+grounding, deterministic validation, correction behavior, and scan-quality processing.
 
 When changing upload normalization, HTML overlay generation, or provider error handling, add focused tests for the changed boundary.
 

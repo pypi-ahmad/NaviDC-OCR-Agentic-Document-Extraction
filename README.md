@@ -152,7 +152,7 @@ Read the [architecture explanation](docs/architecture.md) and
 | Streamlit URL | `http://localhost:8741` |
 | Provider URL | `http://127.0.0.1:8742` |
 | Upload limit | 100 MB |
-| Default layout mode | `Detection` |
+| Default layout mode | `Auto` (quality-guided Detection or Segmentation) |
 | Large-range warning | More than 25 selected pages |
 
 ### Worker defaults

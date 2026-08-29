@@ -18,7 +18,8 @@ Status: `200 OK`
 {
   "status": "ready",
   "provider": "NaviDC-OCR",
-  "model": "StarDoc-AI/NaviDC-OCR"
+  "model": "StarDoc-AI/NaviDC-OCR",
+  "max_render_dpi": 400
 }
 ```
 
@@ -40,7 +41,8 @@ Content type: `multipart/form-data`
 |---|---|---:|---|
 | `document` | File | Yes | Non-empty PDF, at most 100 MB |
 | `source_pages` | JSON string | Yes | Non-empty array of integers greater than or equal to 1 |
-| `layout_mode` | String | Yes | `Detection` or `Segmentation` |
+| `layout_mode` | String | No | `Detection` or `Segmentation`; defaults to `Detection` |
+| `render_dpi` | Integer | No | `200`, `300`, or `400`; defaults to `300` |
 
 `source_pages` maps each page in the submitted PDF back to its one-based page number in the original document. Its order should match the submitted PDF page order.
 
@@ -60,6 +62,7 @@ with httpx.Client(timeout=httpx.Timeout(1800, connect=10)) as client:
         data={
             "source_pages": json.dumps([1]),
             "layout_mode": "Detection",
+            "render_dpi": "300",
         },
     )
     response.raise_for_status()
@@ -86,6 +89,7 @@ The provider adapter validates the three required entries before accepting the r
 | Status | Condition | Example detail |
 |---:|---|---|
 | `422` | Unsupported layout mode | `Choose Detection or Segmentation layout mode.` |
+| `422` | Unsupported render resolution | `Render DPI must be 200, 300, or 400.` |
 | `422` | Missing or invalid page mapping | `The selected page range is invalid.` |
 | `422` | Empty or oversized document | `The document is empty or exceeds 100 MB.` |
 | `500` | NaviDC processing failure | Generic retry guidance without an internal stack trace |
@@ -118,13 +122,25 @@ The final user-facing ZIP is assembled by the Streamlit process, not the worker.
   "artifacts": {
     "markdown": "invoice.md",
     "annotated_pdf": "invoice_annotated.pdf",
-    "html": "invoice_view.html"
+    "html": "invoice_view.html",
+    "structured_extraction": "extraction.json",
+    "schema": "schema.json",
+    "quality_report": "quality-report.json",
+    "review_audit": "review-audit.json"
   },
   "generated_at": "2026-08-29T12:30:00+00:00",
   "ocr_provider": "NaviDC-OCR",
   "ocr_model": "StarDoc-AI/NaviDC-OCR",
-  "layout_mode": "Detection"
+  "layout_mode": "Detection",
+  "accuracy_policy": "Maximum",
+  "structured_extraction": {
+    "model": "gpt-5.6-luna",
+    "reasoning_effort": "medium",
+    "schema_hash": "..."
+  }
 }
 ```
 
 `generated_at` is an ISO 8601 UTC timestamp. The SHA-256 digest covers the original uploaded bytes.
+Structured artifact mappings are present only when structured extraction is enabled and succeeds;
+the values in `structured_extraction` are otherwise `null`.

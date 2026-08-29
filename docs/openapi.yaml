@@ -24,6 +24,7 @@ paths:
                 status: ready
                 provider: NaviDC-OCR
                 model: StarDoc-AI/NaviDC-OCR
+                max_render_dpi: 400
   /extract:
     post:
       operationId: extract
@@ -57,6 +58,10 @@ paths:
                     - Detection
                     - Segmentation
                   default: Detection
+                render_dpi:
+                  type: integer
+                  enum: [200, 300, 400]
+                  default: 300
       responses:
         "200":
           description: Provider result archive.
@@ -85,6 +90,7 @@ components:
         - status
         - provider
         - model
+        - max_render_dpi
       properties:
         status:
           type: string
@@ -95,6 +101,9 @@ components:
         model:
           type: string
           const: StarDoc-AI/NaviDC-OCR
+        max_render_dpi:
+          type: integer
+          const: 400
     ErrorResponse:
       type: object
       required:

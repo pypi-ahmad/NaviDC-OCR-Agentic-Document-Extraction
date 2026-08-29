@@ -12,7 +12,8 @@
 | `client.showErrorDetails` | `none` | Hides Streamlit exception details from users |
 | `browser.gatherUsageStats` | `false` | Disables Streamlit usage telemetry |
 
-The remaining theme entries control the native light interface.
+The remaining theme entries define the dark charcoal and indigo interface,
+dark-pink primary accent, and cyan links.
 
 ## Provider environment variables
 
@@ -92,7 +93,15 @@ The HTML file is self-contained and renders the extracted Markdown as structured
 ├── <stem>_annotated.pdf
 ├── <stem>_view.html
 ├── manifest.json
+├── quality-report.json
+├── extraction.json         # When structured extraction succeeds
+├── schema.json             # When structured extraction is enabled
+├── review-audit.json       # When structured extraction succeeds
+├── field-guide.md          # When an uploaded field guide is used
 └── images/                 # Present only when extracted assets exist
 ```
+
+`quality-report.json` records per-page scan signals, warnings, transformations,
+and the effective render DPI. Structured files are omitted from OCR-only bundles.
 
 See the [provider API reference](provider-api.md#final-manifest-reference) for the manifest schema.

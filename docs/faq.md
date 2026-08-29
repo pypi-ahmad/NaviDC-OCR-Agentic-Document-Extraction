@@ -2,7 +2,10 @@
 
 ## Does processing leave this machine?
 
-The application sends selected pages only to the local NaviDC worker at `127.0.0.1:8742`. It does not implement a cloud OCR call. Normal operating-system, package-management, or model-download activity is outside the extraction request path.
+OCR sends selected pages only to the local NaviDC worker at `127.0.0.1:8742`.
+When optional structured extraction is enabled, extracted Markdown, the confirmed
+schema, and an optional field guide are sent to the configured OpenAI endpoint;
+source PDFs and images are not sent there.
 
 ## Is NaviDC-OCR running in BF16?
 
@@ -30,15 +33,18 @@ The worker uses a temporary directory that is removed after each request. Final 
 
 ## Why did my result disappear?
 
-Changing the file, selected page range, or layout mode invalidates the current result. Ending the browser session also discards session-held artifacts. Download the ZIP before changing inputs.
+Changing the file, selected page range, layout mode, accuracy policy, or confirmed
+schema invalidates the current result. Ending the browser session also discards
+session-held artifacts. Download the ZIP before changing inputs.
 
 ## Does TIFF support multiple frames?
 
 No. The first TIFF frame is treated as one page.
 
-## Can I process more than 25 pages?
+## Can I process long PDFs?
 
-Yes, but the UI warns because large ranges take longer and may increase GPU memory pressure. Smaller ranges are safer and easier to review.
+Yes, but larger ranges take longer and may increase GPU memory pressure. Smaller
+ranges are safer and easier to review.
 
 ## Can I expose the app on a network?
 

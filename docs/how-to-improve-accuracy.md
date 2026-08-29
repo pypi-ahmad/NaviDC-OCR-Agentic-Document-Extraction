@@ -5,16 +5,20 @@ Use this guide when text, tables, or reading order are incomplete or incorrect.
 ## Prepare the best source
 
 1. Prefer the original scan over a screenshot or recompressed copy.
-2. Use approximately 200–300 DPI.
+2. Use a source that remains clear when rendered at 300–400 DPI.
 3. Rotate pages upright before upload.
 4. Avoid shadows, clipped edges, blur, and severe perspective distortion.
 5. Preserve contrast without crushing faint text or handwriting.
 
-The application preserves input resolution for PDFs. Images are normalized to a one-page PDF before OCR.
+The application renders Fast and Balanced extractions at 300 DPI and Maximum at
+400 DPI. Balanced and Maximum conditionally correct illumination, contrast,
+compression, mild blur, and limited skew; Fast skips enhancement. Images are
+normalized to a one-page PDF before this quality pipeline.
 
 ## Choose a layout mode
 
-Start with **Detection**. It is the validated default and works well for common document layouts.
+Start with **Auto**, the application default. It normally selects Detection and
+selects Segmentation when most pages show skew, uneven illumination, or clipped-edge risk.
 
 Try **Segmentation** when a page has:
 
@@ -22,7 +26,9 @@ Try **Segmentation** when a page has:
 - Overlapping or irregular blocks
 - Multi-column content that Detection orders incorrectly
 
-Compare outputs rather than assuming one mode is universally better. The result key includes the layout mode, so switching modes invalidates the previous session result.
+Compare outputs rather than assuming one mode is universally better. Maximum mode
+also compares the alternate strategy when structured validation still requires review.
+Changing layout or accuracy invalidates the previous session result.
 
 ## Reduce the page range
 
@@ -33,7 +39,7 @@ For long or difficult PDFs:
 3. Extract that range separately.
 4. Compare Markdown and annotations.
 
-Smaller ranges reduce processing time and GPU memory pressure. The application warns above 25 selected pages.
+Smaller ranges reduce processing time, GPU memory pressure, and review effort.
 
 ## Diagnose with the artifacts
 

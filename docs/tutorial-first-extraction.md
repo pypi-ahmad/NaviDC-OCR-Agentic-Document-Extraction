@@ -57,7 +57,7 @@ At this checkpoint, only document validation and preview rendering have run. The
 ## 4. Extract the document
 
 1. Leave the page range at page 1.
-2. Leave **Layout mode** set to **Detection**.
+2. Leave **Accuracy** at **Maximum** and **Layout** at **Auto**.
 3. Select **Extract document**.
 
 The first request starts the local worker and may take several minutes while vLLM loads the model. Progress then moves through OCR and artifact generation.
@@ -70,6 +70,9 @@ Use each result tab:
 - **Raw Markdown** shows the exact downloadable text and source-page marker.
 - **Annotated PDF** shows detected regions and reading order.
 - **HTML** renders the extracted Markdown as a standalone, document-styled view.
+- **Summary** reports OCR-only or structured-extraction status.
+- **Quality** shows scan signals, warnings, transformations, and render DPI.
+- **Review** is populated only when optional structured extraction is enabled.
 
 If a tab does not appear, follow the [operations runbook](operations-runbook.md#troubleshooting).
 
@@ -90,6 +93,8 @@ Open `manifest.json` and confirm the source filename, selected range, provider, 
 
 ## What you learned
 
-You prepared the lightweight application environment, started both local processes, selected source pages, ran NaviDC-OCR, reviewed grounding information, and retained a reproducible artifact bundle.
+You prepared the lightweight application environment, started both local processes,
+selected source pages, ran NaviDC-OCR, reviewed its output, and retained a reproducible
+artifact bundle. Structured schemas, grounding, and review are optional enhancements.
 
 Next, use [How to improve extraction accuracy](how-to-improve-accuracy.md) for difficult scans or the [operator runbook](operations-runbook.md) for service management.

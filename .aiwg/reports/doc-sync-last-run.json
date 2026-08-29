@@ -1,0 +1,21 @@
+{
+  "timestamp": "2026-08-30T01:06:40+05:30",
+  "direction": "full",
+  "scope": "repository",
+  "report": ".aiwg/reports/doc-sync-20260830-010640.md",
+  "status": "completed",
+  "changed_files": [
+    "README.md",
+    "docs/architecture.md",
+    "docs/configuration-and-artifacts.md",
+    "docs/developer-guide.md",
+    "docs/documentation-coverage.md",
+    "docs/faq.md",
+    "docs/how-to-improve-accuracy.md",
+    "docs/openapi.yaml",
+    "docs/operations-runbook.md",
+    "docs/provider-api.md",
+    "docs/tutorial-first-extraction.md"
+  ],
+  "human_review_items": []
+}

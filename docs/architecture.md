@@ -9,7 +9,10 @@ The application converts a scanned PDF or image into four local artifacts:
 3. A standalone HTML view rendered from the extracted Markdown
 4. A ZIP bundle containing the artifacts, extracted images, and a manifest
 
-The UI is comparable to an agentic document extraction workspace, while all inference remains on the local machine.
+The OCR and source-document processing remain local. When the user enables optional
+structured extraction, the confirmed schema, optional field guide, and extracted
+Markdown are sent to the environment-configured OpenAI endpoint; source PDFs and
+images are not sent.
 
 ## Component map
 
@@ -17,6 +20,7 @@ The UI is comparable to an agentic document extraction workspace, while all infe
 flowchart LR
     Browser[Web browser] -->|localhost:8741| UI[Streamlit UI]
     UI --> Documents[Document handling]
+    UI --> Quality[Quality assessment and preprocessing]
     UI --> Client[NaviDC provider adapter]
     Client -->|HTTP multipart\nlocalhost:8742| Worker[FastAPI OCR worker]
     Worker --> Engine[NaviDC-OCR / vLLM]
@@ -25,6 +29,9 @@ flowchart LR
     UI --> Artifacts[Artifact generation]
     Documents --> Artifacts
     Client --> Artifacts
+    Client --> Semantic[Optional schema extraction and grounding]
+    Semantic -->|Markdown, schema, field guide| OpenAI[OpenAI endpoint]
+    Semantic --> Artifacts
     Artifacts --> Downloads[MD / PDF / HTML / ZIP]
 ```
 
@@ -36,7 +43,13 @@ flowchart LR
 | `documents.py` | Upload validation, PDF inspection, image-to-PDF normalization, inclusive page selection, safe filenames, and preview rendering |
 | `provider.py` | Typed provider boundary, worker lifecycle, health checks, HTTP request, timeout handling, and provider ZIP parsing |
 | `worker.py` | FastAPI endpoints, fixed NaviDC configuration, GPU request serialization, OCR execution, and result packaging |
-| `artifacts.py` | Artifact names, manifest, final ZIP, page rasterization, and escaped OCR text overlays |
+| `quality.py` | Scan assessment, 300/400 DPI rendering, conservative preprocessing, and Auto layout recommendation |
+| `schemas.py` | Built-in templates, visual-builder compilation, validation, and schema limits |
+| `semantic.py` | Optional schema generation, semantic extraction, bounded correction, and manual review audit |
+| `grounding.py` | Evidence-block construction and source quote/region resolution |
+| `validation.py` | JSON Schema, format, and cross-field validation with confidence scoring |
+| `models.py` | Typed quality, evidence, schema, field, and review results |
+| `artifacts.py` | Artifact names, manifest, standalone HTML, and final ZIP packaging |
 
 ## Runtime separation
 
@@ -63,12 +76,17 @@ sequenceDiagram
     User->>UI: Upload PDF or image
     UI->>Doc: Validate and normalize
     Doc-->>UI: Metadata and normalized PDF
-    User->>UI: Select inclusive range and layout mode
+    User->>UI: Select inclusive range, accuracy, and layout mode
     UI->>Doc: Copy selected pages in source order
-    UI->>API: POST /extract (selected PDF)
+    UI->>Doc: Assess and prepare pages at 300 or 400 DPI
+    UI->>API: POST /extract (prepared PDF, layout mode, render DPI)
     API->>OCR: aio_do_parse
     OCR-->>API: Markdown model output, middle JSON, annotations, images
     API-->>UI: Provider ZIP
+    opt Structured extraction enabled
+        UI->>UI: Extract schema fields, ground evidence, validate, and correct
+        UI->>UI: Record confidence and review audit
+    end
     UI->>Build: Build visual HTML, manifest, and bundle
     Build-->>UI: Downloadable artifacts
     UI-->>User: Preview and download results
@@ -97,7 +115,9 @@ The UI warns for selections above 25 pages, but does not reject them. Actual cap
 - Password-protected and zero-page PDFs are rejected.
 - Provider errors shown to users are bounded and do not include stack traces.
 - Generated HTML escapes OCR content and includes a restrictive Content Security Policy.
-- Provider configuration comes from documented environment variables; credentials are not required or displayed.
+- Local OCR requires no credential. Optional structured extraction reads
+  `OPENAI_API_KEY` and `OPENAI_BASE_URL` from the environment; values are not
+  displayed or persisted.
 - Temporary OCR files are request-scoped.
 
 This is a single-user local application. It does not implement authentication, authorization, rate limiting, or hostile multi-tenant isolation.

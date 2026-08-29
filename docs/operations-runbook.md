@@ -25,6 +25,11 @@ uv run streamlit run streamlit_app.py --server.port 8741
 
 Leave the terminal open while using the application.
 
+The launcher stops an existing worker before startup so the replacement worker's
+logs remain attached to the same console. A transient Windows `WinError 10054`
+during that forced connection close is harmless. Model weights remain cached on
+disk, but vLLM must load them into GPU memory and warm up again.
+
 ## Confirm service health
 
 ```powershell
@@ -51,7 +56,8 @@ $appProcessId = (Get-NetTCPConnection -LocalPort 8741 -State Listen).OwningProce
 Stop-Process -Id $appProcessId
 ```
 
-The WSL provider may remain available to avoid reloading the model. Stop it only when needed:
+When Streamlit is started directly, the WSL provider may remain available. The
+launcher deliberately restarts it on its next run to attach logs. Stop it manually with:
 
 ```powershell
 wsl.exe -d Ubuntu-24.04 -- pkill -f 'uvicorn agentic_document_extraction.worker:app'
@@ -59,8 +65,8 @@ wsl.exe -d Ubuntu-24.04 -- pkill -f 'uvicorn agentic_document_extraction.worker:
 
 ## Routine operating procedure
 
-1. Prefer clear, straight scans at 200–300 DPI.
-2. Use `Detection` first.
+1. Prefer clear, straight scans that remain legible at 300–400 DPI.
+2. Use `Maximum` accuracy and `Auto` layout first; use smaller ranges if GPU memory is tight.
 3. Select only the pages needed for the task.
 4. For complex or long files, process smaller page ranges.
 5. Review the annotated PDF for region and reading-order errors.
@@ -98,8 +104,8 @@ The first request may load the model into GPU memory. Later requests reuse the p
 
 1. Reduce the selected page range.
 2. Confirm no other GPU-heavy application is active with `nvidia-smi`.
-3. Use `Detection` before trying `Segmentation`.
-4. Avoid unnecessarily high-resolution source images.
+3. Compare explicit `Detection` and `Segmentation` only when Auto gives poor regions.
+4. Change Maximum to Balanced or Fast if 400 DPI processing is unnecessarily slow.
 
 ### CUDA out of memory or worker exits
 
@@ -123,7 +129,9 @@ Confirm that:
 
 ### Results disappear
 
-Results are session-scoped. They are cleared when the uploaded file, page range, or layout mode changes, or when the browser session ends. Download the ZIP before changing inputs.
+Results are session-scoped. They are cleared when the uploaded file, page range,
+layout mode, accuracy policy, or confirmed schema changes, or when the browser
+session ends. Download the ZIP before changing inputs.
 
 ### HTML text alignment is imperfect
 
@@ -145,4 +153,6 @@ $env:NAVIDC_PROVIDER_URL = "http://127.0.0.1:8752"
 .\launch.cmd
 ```
 
-These values are not secrets. Do not place credentials in this project.
+These values are not secrets. Optional structured extraction additionally requires
+`OPENAI_API_KEY` and `OPENAI_BASE_URL`; keep both in the user environment and never
+place their values in this project.
