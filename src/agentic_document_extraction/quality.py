@@ -1,3 +1,14 @@
+"""Scan-quality assessment and conservative pre-OCR image enhancement.
+
+This module only rasterizes, scores, and (optionally) repairs page images
+before OCR; it must not perform layout detection or text extraction (NaviDC
+owns that, via provider.py/worker.py). The warning thresholds and enhancement
+parameters below are heuristic calibration knobs tuned against the validated
+scanner/hardware setup, not universal constants - adjust them if source scans
+come from a different device or lighting setup. Open provider.py next to see
+where a prepared document is sent for OCR.
+"""
+
 from __future__ import annotations
 
 from dataclasses import replace
@@ -16,6 +27,8 @@ def prepare_document(
     pdf_bytes: bytes, source_pages: list[int], policy: AccuracyMode
 ) -> PreparedDocument:
     """Rasterize, assess, and conservatively improve selected source pages."""
+    # Maximum accuracy renders at 400 DPI instead of 300; this is also the
+    # render_dpi later sent to the OCR worker so OCR sees the same pixels.
     render_dpi = 400 if policy == "Maximum" else 300
     source = pymupdf.open(stream=pdf_bytes, filetype="pdf")
     prepared = pymupdf.open()
@@ -90,6 +103,10 @@ def analyze_page(image: np.ndarray, page: int, dpi: int) -> PageQuality:
 
 
 def enhance_page(image: np.ndarray, report: PageQuality) -> tuple[np.ndarray, list[str]]:
+    # Each enabled step below operates on the previous step's output, in this
+    # fixed order (illumination, then contrast, then denoise, then sharpen,
+    # then deskew); reordering them changes the result, not just which
+    # warnings get addressed.
     gray = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
     transformations: list[str] = []
     if "uneven_illumination" in report.warnings:
@@ -122,6 +139,10 @@ def enhance_page(image: np.ndarray, report: PageQuality) -> tuple[np.ndarray, li
 
 
 def recommend_layout(report: QualityReport) -> str:
+    # Only used when the caller requests Auto layout. "Segmentation" is
+    # recommended once more than half the pages show skew, uneven
+    # illumination, or a clipped edge; this majority threshold, and the
+    # specific warning set, are heuristic, not derived from NaviDC behavior.
     degraded = sum(
         bool({"skew", "uneven_illumination", "clipped_edge_risk"} & set(page.warnings))
         for page in report.pages
@@ -132,6 +153,10 @@ def recommend_layout(report: QualityReport) -> str:
 def evidence_crop(
     pdf_bytes: bytes, page_index: int, bbox: tuple[float, float, float, float], dpi: int = 180
 ) -> bytes:
+    # Not called anywhere in this repository. bbox is treated here as PDF
+    # point space (pymupdf.Rect intersected with page.rect); whether that
+    # matches the coordinate space EvidenceBlock.bbox actually carries (see
+    # models.py) is unclear from this file.
     document = pymupdf.open(stream=pdf_bytes, filetype="pdf")
     try:
         page = document[page_index]
