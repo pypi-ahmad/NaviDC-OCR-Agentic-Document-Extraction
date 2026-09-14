@@ -1,3 +1,12 @@
+"""HTTP boundary and lifecycle manager for the isolated NaviDC-OCR worker.
+
+This is the only module the Streamlit app uses to reach OCR. It must not
+import NaviOCR, Torch, or vLLM (see ADR-001 in docs/adr): those live only in
+the worker's separate WSL Python environment, reached over HTTP. Provider
+errors from here are always safe, bounded, user-facing strings - never raw
+exception text. Open worker.py next to see the other side of this boundary.
+"""
+
 from __future__ import annotations
 
 import io
@@ -88,6 +97,10 @@ class NaviDcProvider:
             payload = response.json()
             return payload if isinstance(payload, dict) else {"status": "unavailable"}
         except (httpx.HTTPError, ValueError):
+            # Deliberately never raises: callers (ensure_running, the UI) poll
+            # this cheaply before the worker exists, so any transport or JSON
+            # failure is folded into the same "unavailable" state as a normal
+            # not-running worker rather than an exception to handle.
             return {"status": "unavailable"}
 
     def ensure_running(self, timeout_seconds: float = 45) -> dict[str, object]:
@@ -106,6 +119,9 @@ class NaviDcProvider:
         health = self.health()
         if health.get("status") == "ready":
             return health
+        # Reuse an already-running process handle across calls; only spawn a
+        # new worker if this adapter has never started one or the previous
+        # one has exited.
         if self._process is None or self._process.poll() is not None:
             self._process = _start_worker()
         deadline = time.monotonic() + timeout_seconds
@@ -157,6 +173,8 @@ class NaviDcProvider:
                 raise ProviderError(_safe_provider_message(response))
             return _read_provider_archive(response.content)
         except httpx.TimeoutException as exc:
+            # Network/timeout failures are remapped to safe, generic messages
+            # here so the UI never surfaces a raw httpx exception, host, or path.
             raise ProviderError("NaviDC-OCR timed out while processing this document.") from exc
         except httpx.HTTPError as exc:
             raise ProviderError("The local NaviDC-OCR service became unavailable.") from exc
@@ -168,6 +186,10 @@ def _start_worker() -> subprocess.Popen[bytes]:
     port = os.getenv("NAVIDC_PROVIDER_PORT", "8742")
     environment = os.environ.copy()
     if os.name == "nt":
+        # Workaround: uvicorn runs inside WSL Ubuntu, but this repository is
+        # checked out on the Windows filesystem. PYTHONPATH must be a path WSL
+        # can resolve, so the Windows source_dir is translated with wslpath
+        # before being used, not passed through as-is.
         windows_source = source_dir.replace("\\", "/")
         wsl_source = subprocess.run(
             ["wsl.exe", "-d", "Ubuntu-24.04", "--", "wslpath", "-a", windows_source],
@@ -204,6 +226,9 @@ def _start_worker() -> subprocess.Popen[bytes]:
 
 
 def _safe_provider_message(response: httpx.Response) -> str:
+    # The worker's error detail is untrusted-ish (it can echo NaviDC internals);
+    # only a short string is passed through, and anything longer or malformed
+    # falls back to a fixed generic message instead of being shown as-is.
     try:
         detail = response.json().get("detail")
         if isinstance(detail, str) and len(detail) <= 300:
@@ -214,6 +239,8 @@ def _safe_provider_message(response: httpx.Response) -> str:
 
 
 def _read_provider_archive(data: bytes) -> ProviderOutput:
+    # Archive layout is the on-wire contract with worker._run_extraction:
+    # result.md, annotated.pdf, middle.json, and an optional images/ folder.
     try:
         with zipfile.ZipFile(io.BytesIO(data)) as archive:
             names = set(archive.namelist())
