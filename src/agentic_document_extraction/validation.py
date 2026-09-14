@@ -1,3 +1,12 @@
+"""Extraction validation: schema conformance, custom rules, and verification scoring.
+
+This module validates extracted JSON records against JSON Schema (Draft 2020-12)
+and domain cross-field rules (sum totals, date ordering, equality), grades each
+field's confidence from grounding and schema issues, and computes multi-objective
+scores for agentic repair loops. It must not execute OCR or make LLM calls.
+Open semantic.py next to see where validation feeds into the extraction pipeline.
+"""
+
 from __future__ import annotations
 
 from datetime import date
@@ -11,6 +20,8 @@ from .models import EvidenceBlock, FieldResult, ValidationIssue
 
 
 def validate_record(record: dict[str, Any], schema: dict[str, Any]) -> tuple[ValidationIssue, ...]:
+    # Strips custom `x-*` extensions before feeding schema to Draft202012Validator
+    # so standard schema validators do not fail on proprietary metadata.
     validator = Draft202012Validator(_without_extensions(schema), format_checker=FormatChecker())
     issues = [
         ValidationIssue(
@@ -38,6 +49,10 @@ def build_field_results(
     issues: tuple[ValidationIssue, ...],
     corrected_paths: set[str] | None = None,
 ) -> tuple[FieldResult, ...]:
+    # Verification scoring formula: 0.7 * evidence_match + 0.3 * schema_valid.
+    # Repaired fields incur a 0.1 penalty. If evidence is missing or ungrounded
+    # (block_id is None), score is capped at 0.69, preventing ungrounded values
+    # from ever attaining "verified" status (which requires >= 0.90).
     corrected_paths = corrected_paths or set()
     evidence_by_path = {
         str(item.get("field_path")): item
@@ -85,6 +100,9 @@ def build_field_results(
 def objective(
     fields: tuple[FieldResult, ...], issues: tuple[ValidationIssue, ...]
 ) -> tuple[int, int, int]:
+    # Lexicographic objective tuple: (valid_fields, grounded_fields, -issue_count).
+    # Used by semantic.py to determine if an automatic correction pass produced
+    # a strictly better extraction result.
     valid = sum(not field.issues and field.value is not None for field in fields)
     grounded = sum(
         field.evidence is not None and field.evidence.block_id is not None for field in fields
@@ -175,6 +193,8 @@ def _validate_rule(record: dict[str, Any], rule: Any) -> ValidationIssue | None:
 def _compare_sum(
     path: Any, target: Any, values: list[Any], rule: dict[str, Any]
 ) -> ValidationIssue | None:
+    # Uses Decimal arithmetic to prevent IEEE-754 floating-point inaccuracies
+    # from creating false-positive validation errors on currency values.
     if any(value is None for value in values):
         return None
     try:

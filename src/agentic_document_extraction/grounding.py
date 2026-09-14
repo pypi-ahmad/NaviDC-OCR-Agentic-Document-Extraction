@@ -1,3 +1,12 @@
+"""OCR evidence grounding: matching LLM-extracted quotes to OCR layout blocks.
+
+This module parses NaviDC's middle_json AST into discrete EvidenceBlocks and
+resolves model-claimed text quotes back to specific page bounding boxes using
+fuzzy sequence matching. It must not call external APIs or evaluate schema
+validation rules. Open validation.py next to see how resolved evidence is
+scored and translated into verification statuses.
+"""
+
 from __future__ import annotations
 
 import html
@@ -13,6 +22,9 @@ from .models import EvidenceBlock, EvidenceRef
 def build_evidence_blocks(
     middle_json: dict[str, Any], source_pages: list[int]
 ) -> tuple[EvidenceBlock, ...]:
+    # Extracts layout blocks from middle_json["pdf_info"]. source_pages maps
+    # the 0-based index in the rendered PDF back to the 1-based source page
+    # number chosen by the user. Block IDs use the canonical format `p{page}-b{idx}`.
     blocks: list[EvidenceBlock] = []
     pages = middle_json.get("pdf_info", [])
     if not isinstance(pages, list):
@@ -45,6 +57,9 @@ def build_evidence_blocks(
 def resolve_evidence(
     field_path: str, quote: str, page: int | None, blocks: tuple[EvidenceBlock, ...]
 ) -> EvidenceRef:
+    # Requires a fuzzy matching score >= 0.90 to bind a quote to a layout block.
+    # Scores below 0.90 leave block_id and bbox as None; downstream validation
+    # treats an unbound quote as ungrounded and penalizes or zeroes the field.
     normalized_quote = normalize_text(quote)
     candidates = [block for block in blocks if page is None or block.page == page]
     best: EvidenceBlock | None = None
@@ -71,6 +86,8 @@ def resolve_evidence(
 
 
 def iter_leaf_values(value: Any, path: str = "") -> Iterator[tuple[str, Any]]:
+    # Recursively emits (RFC 6901 JSON pointer, leaf value) pairs. Tilde
+    # escaping (~ -> ~0, / -> ~1) ensures valid pointer tokens for keys.
     if isinstance(value, dict):
         for key, child in value.items():
             escaped = str(key).replace("~", "~0").replace("/", "~1")
@@ -90,6 +107,9 @@ def normalize_text(value: str) -> str:
 
 
 def _bbox(value: Any) -> tuple[float, float, float, float] | None:
+    # Normalizes coordinate lists (e.g. 4-element bboxes or multi-point polygons)
+    # into an axis-aligned bounding box (min_x, min_y, max_x, max_y). Note that
+    # coordinates reflect pixel space at the render DPI used during OCR.
     if not isinstance(value, list) or len(value) < 4:
         return None
     try:

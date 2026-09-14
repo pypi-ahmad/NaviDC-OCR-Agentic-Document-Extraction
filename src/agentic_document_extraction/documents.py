@@ -1,3 +1,13 @@
+"""Upload validation and normalization: the trust boundary for user files.
+
+Everything entering this module is an untrusted upload. It must reject or
+normalize unsafe input (oversized, wrong type, password-protected, damaged)
+before any other module sees it, and it must not know about the OCR
+provider, quality assessment, or extraction. Page numbers are one-based and
+inclusive everywhere in this application; that convention starts here. Open
+provider.py next to see where a validated document goes.
+"""
+
 from __future__ import annotations
 
 import hashlib
@@ -104,6 +114,8 @@ def select_pdf_pages(pdf_bytes: bytes, start_page: int, end_page: int) -> bytes:
     try:
         validate_page_range(start_page, end_page, source.page_count)
         selected = pymupdf.open()
+        # PyMuPDF's insert_pdf uses zero-based, inclusive page indices; this
+        # is the one place the one-based inclusive UI range gets converted.
         selected.insert_pdf(source, from_page=start_page - 1, to_page=end_page - 1)
         result = selected.tobytes(garbage=4, deflate=True)
         selected.close()
@@ -189,6 +201,8 @@ def _inspect_pdf(data: bytes) -> tuple[bytes, int]:
 def _image_to_pdf(data: bytes) -> bytes:
     try:
         with Image.open(io.BytesIO(data)) as image:
+            # Only the first frame is used; a multi-frame TIFF silently loses
+            # every later frame here rather than raising.
             image.seek(0)
             image.load()
             normalized = ImageOps.exif_transpose(image).convert("RGBA")

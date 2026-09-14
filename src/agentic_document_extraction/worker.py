@@ -1,3 +1,14 @@
+"""FastAPI OCR worker: the only module allowed to import NaviOCR/vLLM.
+
+This module runs solely inside the isolated NaviDC-OCR WSL Python 3.12
+environment (it is excluded from `ty` checking in pyproject.toml because
+NaviOCR and FastAPI are not installed in the Streamlit venv). It must not be
+imported by streamlit_app.py or any module reachable from it; provider.py is
+the only caller, over HTTP. See ADR-001 in docs/adr for why the processes are
+split. The response ZIP's entry names (result.md, middle.json, annotated.pdf,
+images/) are the on-wire contract with provider._read_provider_archive.
+"""
+
 from __future__ import annotations
 
 import asyncio
@@ -11,6 +22,10 @@ import NaviOCR.config as CONFIG
 from fastapi import FastAPI, Form, HTTPException, UploadFile
 from fastapi.responses import Response
 
+# NaviOCR reads CONFIG at import time, so the fixed model/runtime settings
+# below must be applied before NaviOCR.engine (and the other NaviOCR imports)
+# are imported; that ordering is why those imports are pushed below this call
+# and marked `noqa: E402` instead of living at the top of the file.
 CONFIG.update(
     [
         "model_path=StarDoc-AI/NaviDC-OCR",
@@ -26,6 +41,10 @@ from NaviOCR.engine import aio_do_parse  # noqa: E402
 from NaviOCR.src.vlm_middle_json_mkcontent import union_make  # noqa: E402
 
 app = FastAPI(title="Local NaviDC-OCR provider", docs_url=None, redoc_url=None)
+# Serializes all extractions so at most one vLLM job runs at a time; the
+# fixed GPU_MEMORY_UTILIZATION=0.85 budget above is sized for one job, not
+# concurrent ones, so a second request waits rather than contending for GPU
+# memory.
 _extraction_lock = asyncio.Lock()
 
 
@@ -84,6 +103,9 @@ async def extract(
         try:
             archive = await _run_extraction(pdf_bytes, page_numbers, render_dpi)
         except Exception as exc:
+            # Any NaviDC/vLLM failure (CUDA OOM, model error, etc.) is
+            # remapped to one generic 500 detail; internals are never
+            # forwarded to the HTTP caller.
             raise HTTPException(
                 status_code=500,
                 detail=(
@@ -102,6 +124,12 @@ async def _run_extraction(pdf_bytes: bytes, page_numbers: list[int], render_dpi:
             kwargs["dpi"] = render_dpi
             return original_loader(*args, **kwargs)
 
+        # Workaround: aio_do_parse has no render-DPI parameter, so the PDF
+        # rasterizer NaviDC calls internally is monkey-patched for the
+        # duration of this call and restored in the finally block. This
+        # mutates module-level state; it is only safe because
+        # _extraction_lock (above) guarantees one _run_extraction runs at a
+        # time.
         vlm_analyze.load_images_from_pdf = load_at_requested_dpi
         try:
             results = await aio_do_parse(str(output_root), ["document"], [pdf_bytes], [None])
@@ -113,6 +141,9 @@ async def _run_extraction(pdf_bytes: bytes, page_numbers: list[int], render_dpi:
         markdown_parts = []
         for index, page in enumerate(pages):
             source_page = page_numbers[index] if index < len(page_numbers) else index + 1
+            # `<!-- Page N -->` is a data-format contract: grounding.py and
+            # artifacts.py both parse this exact marker to recover per-page
+            # boundaries from the flattened Markdown.
             markdown_parts.append(f"<!-- Page {source_page} -->\n\n{union_make([page], 'images')}")
         archive_buffer = io.BytesIO()
         with zipfile.ZipFile(archive_buffer, "w", zipfile.ZIP_DEFLATED) as archive:
