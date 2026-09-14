@@ -1,3 +1,12 @@
+"""Artifact packaging and display conversion: standalone HTML, markdown, and ZIP bundles.
+
+This module is responsible for packaging OCR outputs, structured extractions,
+audit logs, and quality reports into self-contained zip archives, standalone
+HTML views, and sanitized Markdown. It must not execute OCR, call language
+models, or modify input documents. Open schemas.py or grounding.py next to
+see how structured data and evidence blocks are prepared.
+"""
+
 from __future__ import annotations
 
 import html
@@ -15,6 +24,9 @@ from markdown_it import MarkdownIt
 
 from .documents import safe_stem
 
+# Regex boundaries: NaviDC-OCR outputs raw HTML table elements embedded in
+# Markdown, and worker._run_extraction demarcates pages with `<!-- Page N -->`.
+# Both are parsed here to convert raw tables into Markdown and section off pages.
 _HTML_TABLE_PATTERN = re.compile(r"<table\b[^>]*>.*?</table>", re.IGNORECASE | re.DOTALL)
 _PAGE_MARKER_PATTERN = re.compile(r"<!--\s*Page\s+(\d+)\s*-->", re.IGNORECASE)
 
@@ -132,6 +144,10 @@ def build_bundle(item: BundleInput) -> bytes:
     Returns:
         In-memory ZIP bytes. Image paths are reduced to safe base filenames.
     """
+    # Bundle layout on disk: stores core artifacts alongside optional schema,
+    # quality, and audit manifests. Extracted image keys are sanitized with
+    # PurePosixPath(name).name to strip directory traversal sequences before
+    # storing them under the images/ folder.
     names = artifact_names(item.source_filename)
     output = io.BytesIO()
     with zipfile.ZipFile(output, "w", compression=zipfile.ZIP_DEFLATED) as archive:
@@ -163,6 +179,10 @@ def build_html(markdown: str, title: str) -> bytes:
     normalized to Markdown tables, while other raw provider HTML is escaped.
     The source PDF and its page images are intentionally not embedded.
     """
+    # Security boundary: raw HTML is escaped and rendered with a restrictive
+    # Content-Security-Policy (default-src 'none'; style-src 'unsafe-inline')
+    # to neutralize any script or network exfiltration payloads embedded in
+    # untrusted document text.
     renderer = MarkdownIt("commonmark", {"html": False, "linkify": False}).enable("table")
     parts = _PAGE_MARKER_PATTERN.split(markdown)
     sections: list[str] = []
@@ -240,6 +260,8 @@ def markdown_for_display(markdown: str) -> str:
 class _TableParser(HTMLParser):
     """Parse a provider HTML table into a small row-and-cell representation."""
 
+    # Colspans are handled by padding empty cells so that the rendered
+    # Markdown table has uniform column widths across all rows.
     def __init__(self) -> None:
         super().__init__(convert_charrefs=True)
         self.rows: list[list[str]] = []
@@ -308,6 +330,9 @@ def _positive_float(values: Any, index: int) -> float:
 
 
 def _block_overlay(block: Any, page_width: float, page_height: float) -> str:
+    # Not called anywhere in this repository. Converts layout bbox coordinates
+    # to percentage-based CSS positioning relative to page_width and page_height
+    # for rendering text region overlays.
     if not isinstance(block, dict):
         return ""
     bbox = block.get("bbox")

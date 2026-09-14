@@ -1,3 +1,13 @@
+"""JSON Schema compilation, validation, and OpenAI Structured Outputs adaptation.
+
+This module validates extraction schemas against a strict JSON Schema keyword
+whitelist, compiles flattened UI form rows into nested schemas, computes
+canonical SHA-256 schema hashes, and adapts user schemas into strict nullable
+schemas for OpenAI structured outputs. It must not execute OCR or run model
+extractions. Open validation.py next to see how records are validated against
+these schemas.
+"""
+
 from __future__ import annotations
 
 import hashlib
@@ -8,6 +18,8 @@ from typing import Any
 
 from .models import SchemaDefinition
 
+# Guard limits: prevent oversized schemas or excessive recursion from exhausting
+# LLM prompt token windows or triggering stack overflows.
 MAX_SCHEMA_BYTES = 1024 * 1024
 MAX_FIELD_GUIDE_BYTES = 256 * 1024
 MAX_LEAF_FIELDS = 100
@@ -148,6 +160,9 @@ SCHEMA_TEMPLATES: dict[str, dict[str, Any]] = {
 def schema_definition(
     name: str, schema: dict[str, Any], field_guide: str = "", version: str = "1"
 ) -> SchemaDefinition:
+    # Computes a deterministic SHA-256 schema hash across canonical JSON
+    # representation (sorted keys, compact separators) concatenated with the
+    # raw field guide. This hash serves as the versioned provenance stamp.
     validate_schema(schema)
     if len(field_guide.encode("utf-8")) > MAX_FIELD_GUIDE_BYTES:
         raise SchemaError("The Markdown field guide exceeds 256 KB.")
@@ -255,6 +270,10 @@ def validate_schema(schema: dict[str, Any]) -> None:
 
 def extraction_response_schema(schema: dict[str, Any]) -> dict[str, Any]:
     """Wrap a nullable strict form of a user schema with field evidence."""
+    # Adapts user schemas for OpenAI's strict Structured Outputs mode:
+    # wraps the user record alongside supporting quote/page evidence, and
+    # calls _strict_nullable to ensure all fields are required and nullable,
+    # additionalProperties is False, and vendor extensions (x-*) are stripped.
     validate_schema(schema)
     record = _strict_nullable(deepcopy(schema))
     return {

@@ -1,3 +1,14 @@
+"""Streamlit UI: document upload, OCR execution, schema builder, and review studio.
+
+This module provides the primary user interface for selecting document pages,
+configuring scan quality and accuracy policies, defining extraction schemas,
+monitoring OCR and semantic extraction progress, conducting human-in-the-loop
+field verification, and downloading structured bundles. It must not import
+vLLM, NaviOCR, or PyTorch directly; all OCR execution is proxied through
+NaviDcProvider over HTTP. Open documents.py or provider.py next to follow the
+underlying ingestion and extraction pipeline.
+"""
+
 from __future__ import annotations
 
 import json
@@ -144,6 +155,11 @@ def process_document(
                 structured = run_structured_extraction(
                     semantic_provider(), markdown, output.middle_json, pages, definition
                 )
+                # Layout arbitration: when Maximum accuracy is requested and the
+                # primary layout yields validation or grounding issues, runs an
+                # alternate OCR pass with the complementary layout mode (Detection
+                # vs Segmentation) and adopts the alternate if its objective score
+                # strictly improves upon the primary result.
                 if accuracy == "Maximum" and structured.review_required:
                     bar.progress(78, text="**78%** · Comparing alternate layout strategy")
                     alternate = "Segmentation" if layout == "Detection" else "Detection"
@@ -339,6 +355,9 @@ with st.sidebar:
     )
 
 selected_pdf = select_pdf_pages(document.pdf_bytes, start, end)
+# Cache key boundary: binds document content hash, page range, layout mode,
+# accuracy policy, and schema hash. Changing any parameter invalidates the cached
+# extraction result in session state.
 schema_hash = definition.schema_hash if definition else "ocr-only"
 current_key = f"{document.sha256}:{start}:{end}:{layout}:{accuracy}:{schema_hash}"
 result: ExtractionResult | None = st.session_state.get("extraction_result")
@@ -401,6 +420,9 @@ with review:
             st.segmented_control("Decision", ["accept", "correct", "reject"], default="accept")
             or "accept"
         )
+        # Human review submission: updates field value, appends an immutable
+        # audit event, re-packages the downloadable ZIP bundle, and triggers a
+        # Streamlit rerun to immediately reflect updated statuses and metrics.
         if st.button("Apply review decision"):
             try:
                 value = None if action == "reject" else json.loads(value_text)
