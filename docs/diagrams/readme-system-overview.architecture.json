@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "NaviDC OCR System Overview",
+    "quality_profile": "showcase",
+    "viewBox": [1320, 620]
+  },
+  "components": [
+    { "id": "browser", "type": "external", "label": "Browser", "pos": [25, 230], "size": [130, 64] },
+    { "id": "streamlit", "type": "frontend", "label": "Streamlit application", "pos": [210, 230], "size": [160, 64] },
+    { "id": "validate_pages", "type": "backend", "label": "Validate and select pages", "pos": [410, 230], "size": [190, 64] },
+    { "id": "provider_adapter", "type": "backend", "label": "Typed OCR provider adapter", "pos": [630, 230], "size": [190, 64] },
+    { "id": "worker", "type": "backend", "label": "FastAPI worker", "sublabel": "WSL · localhost:8742", "pos": [850, 230], "size": [180, 64] },
+    { "id": "navidc_engine", "type": "backend", "label": "NaviDC-OCR", "sublabel": "vLLM", "pos": [1080, 230], "size": [180, 64] },
+    { "id": "gpu", "type": "backend", "label": "NVIDIA GPU", "pos": [1080, 440], "size": [160, 64] },
+    { "id": "artifact_builder", "type": "backend", "label": "Artifact builder", "sublabel": "HTML · manifest · bundle", "pos": [630, 440], "size": [190, 64] },
+    { "id": "results", "type": "external", "label": "Preview and downloads", "pos": [850, 440], "size": [180, 64] }
+  ],
+  "connections": [
+    { "from": "browser", "to": "streamlit" },
+    { "from": "streamlit", "to": "validate_pages" },
+    { "from": "validate_pages", "to": "provider_adapter" },
+    { "from": "provider_adapter", "to": "worker", "label": "multipart HTTP · localhost:8742", "variant": "emphasis", "labelDy": -50 },
+    { "from": "worker", "to": "navidc_engine" },
+    { "from": "navidc_engine", "to": "gpu", "fromSide": "bottom", "toSide": "top" },
+    { "from": "worker", "to": "provider_adapter", "label": "provider ZIP", "variant": "dashed", "labelDy": 48 },
+    { "from": "provider_adapter", "to": "artifact_builder", "fromSide": "bottom", "toSide": "top" },
+    { "from": "artifact_builder", "to": "results" }
+  ]
+}

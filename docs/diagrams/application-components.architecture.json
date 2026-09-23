@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "NaviDC OCR Application Components",
+    "quality_profile": "showcase",
+    "viewBox": [1390, 820]
+  },
+  "components": [
+    { "id": "browser", "type": "external", "label": "Web browser", "pos": [42, 260], "size": [142, 68] },
+    { "id": "ui", "type": "frontend", "label": "Streamlit UI", "pos": [250, 260], "size": [150, 68] },
+    { "id": "documents", "type": "backend", "label": "Document handling", "pos": [478, 120], "size": [174, 68] },
+    { "id": "quality", "type": "backend", "label": "Quality assessment", "sublabel": "and preprocessing", "pos": [478, 390], "size": [174, 72] },
+    { "id": "client", "type": "backend", "label": "NaviDC provider adapter", "pos": [718, 260], "size": [190, 68] },
+    { "id": "worker", "type": "backend", "label": "FastAPI OCR worker", "pos": [982, 260], "size": [176, 68] },
+    { "id": "engine", "type": "backend", "label": "NaviDC-OCR / vLLM", "pos": [1190, 168], "size": [172, 68] },
+    { "id": "gpu", "type": "backend", "label": "NVIDIA GPU", "pos": [1190, 350], "size": [150, 68] },
+    { "id": "artifacts", "type": "backend", "label": "Artifact generation", "pos": [718, 585], "size": [174, 68] },
+    { "id": "semantic", "type": "backend", "label": "Optional schema extraction", "sublabel": "and grounding", "pos": [982, 585], "size": [190, 72] },
+    { "id": "openai", "type": "external", "label": "OpenAI endpoint", "pos": [1220, 585], "size": [160, 68] },
+    { "id": "downloads", "type": "external", "label": "MD / PDF / HTML / ZIP", "pos": [478, 585], "size": [184, 68] }
+  ],
+  "connections": [
+    { "from": "browser", "to": "ui", "label": "localhost:8741", "labelAt": [217, 342] },
+    { "from": "ui", "to": "documents" },
+    { "from": "ui", "to": "quality" },
+    { "from": "ui", "to": "client" },
+    { "from": "client", "to": "worker", "label": "HTTP multipart · localhost:8742", "variant": "emphasis", "labelAt": [932, 256] },
+    { "from": "worker", "to": "engine" },
+    { "from": "engine", "to": "gpu", "fromSide": "bottom", "toSide": "top" },
+    { "from": "worker", "to": "client", "label": "ZIP response", "variant": "dashed", "labelAt": [958, 225] },
+    { "from": "ui", "to": "artifacts" },
+    { "from": "documents", "to": "artifacts", "fromSide": "left", "toSide": "bottom", "via": [[20, 154], [20, 700], [805, 700]] },
+    { "from": "client", "to": "artifacts", "fromSide": "bottom", "toSide": "top" },
+    { "from": "client", "to": "semantic" },
+    { "from": "semantic", "to": "openai", "label": "Markdown · schema · field guide", "variant": "dashed", "labelAt": [1196, 671] },
+    { "from": "semantic", "to": "artifacts" },
+    { "from": "artifacts", "to": "downloads" }
+  ]
+}

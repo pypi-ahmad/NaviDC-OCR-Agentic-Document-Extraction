@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "NaviDC OCR Extraction Sequence",
+    "quality_profile": "showcase",
+    "column_fit": "spread",
+    "viewBox": [1240, 1160]
+  },
+  "participants": [
+    { "id": "user", "type": "external", "label": "User" },
+    { "id": "ui", "type": "frontend", "label": "Streamlit" },
+    { "id": "documents", "type": "backend", "label": "Document handling" },
+    { "id": "worker", "type": "backend", "label": "OCR worker" },
+    { "id": "ocr", "type": "backend", "label": "NaviDC-OCR" },
+    { "id": "extraction", "type": "backend", "label": "Extraction service" },
+    { "id": "builder", "type": "backend", "label": "Artifact builder" }
+  ],
+  "messages": [
+    { "from": "user", "to": "ui", "y": 180, "label": "Upload PDF or image", "variant": "emphasis" },
+    { "from": "ui", "to": "documents", "y": 238, "label": "Validate and normalize" },
+    { "from": "documents", "to": "ui", "y": 296, "label": "Metadata and normalized PDF", "variant": "return" },
+    { "from": "user", "to": "ui", "y": 354, "label": "Select range, accuracy, and layout", "variant": "emphasis" },
+    { "from": "ui", "to": "documents", "y": 412, "label": "Copy selected pages in source order" },
+    { "from": "ui", "to": "documents", "y": 470, "label": "Assess and prepare at 300 or 400 DPI" },
+    { "from": "ui", "to": "worker", "y": 528, "label": "POST /extract · prepared PDF and options", "variant": "emphasis" },
+    { "from": "worker", "to": "ocr", "y": 586, "label": "aio_do_parse" },
+    { "from": "ocr", "to": "worker", "y": 644, "label": "Markdown · middle JSON · annotations · images", "variant": "return" },
+    { "from": "worker", "to": "ui", "y": 702, "label": "Provider ZIP", "variant": "return" },
+    { "from": "ui", "to": "extraction", "y": 760, "label": "Optional: extract fields, ground evidence, validate, correct", "variant": "dashed" },
+    { "from": "extraction", "to": "ui", "y": 818, "label": "Confidence and review audit", "variant": "return" },
+    { "from": "ui", "to": "builder", "y": 876, "label": "Build visual HTML, manifest, and bundle" },
+    { "from": "builder", "to": "ui", "y": 934, "label": "Downloadable artifacts", "variant": "return" },
+    { "from": "ui", "to": "user", "y": 992, "label": "Preview and download results", "variant": "return" }
+  ]
+}

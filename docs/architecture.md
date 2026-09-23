@@ -16,6 +16,8 @@ images are not sent.
 
 ## Component map
 
+[Open the interactive component map](diagrams/application-components.html).
+
 ```mermaid
 flowchart LR
     Browser[Web browser] -->|localhost:8741| UI[Streamlit UI]
@@ -63,6 +65,8 @@ The system uses two Python environments:
 On Windows, the provider adapter converts the repository `src` path with `wslpath` and adds it to the worker's `PYTHONPATH`. The worker can therefore load the adapter module without installing the Streamlit project into the NaviDC environment.
 
 ## Extraction sequence
+
+[Open the interactive extraction sequence](diagrams/extraction-sequence.html).
 
 ```mermaid
 sequenceDiagram

@@ -122,6 +122,8 @@ provider, model, and layout mode.
 
 ## How it works
 
+[Open the interactive system overview](docs/diagrams/readme-system-overview.html).
+
 ```mermaid
 flowchart LR
     Browser[Browser] -->|localhost:8741| UI[Streamlit application]
