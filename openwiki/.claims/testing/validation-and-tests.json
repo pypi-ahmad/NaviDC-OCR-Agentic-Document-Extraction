@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:b85465d63d3e4782893eda12e64e5253497fb6e6f1ede02635e424fda2dd029c",
+  "claims": [
+    {
+      "id": "claim_27ca34472373412eb23f53f7a926ae52",
+      "statement": "Core tests cover inclusive page-range validation and ordering, ZIP composition and manifest metadata, Markdown table conversion, page markers, and safe HTML rendering.",
+      "evidence": [
+        {
+          "resource": "repo://tests/test_core.py#L24-L148",
+          "version": "repo-lines-v1:sha256:4be350d0fa49e073a8e856dc702b727f2ce7ce8e465e3af9ea439bc0fdfd8576:eyJzZWxlY3RlZExpbmVDb3VudCI6MTI1LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI2MjBhMThiYThlMGQzZjUzNzU2MDk5Mzg3YmQxOTMyZDM3NWY3ZGNiM2NjNGJkOWMwYmJiZGE0NWIyNWU4NDMzIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiJiOWJlOWQzZWY1N2Q0ZmRiYzExMzZmZmIxM2MxNTgwNGNmZTllOWZmOWQ2MDJjN2FjZTBkMzdiNTZlNGNjYzU1IiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJhOThiMDYzZDliNDdlNjUzNzk2MjU1NzJjY2UxOTc2NjlkNTc2N2UxMmMxOGJlMDc1NjUyYjhjZDk4MWNlOGQ1IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MCwiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1In0"
+        }
+      ]
+    },
+    {
+      "id": "claim_ca859f44c44144ef8eb2bafdbe17bf3e",
+      "statement": "Agentic tests cover schema compilation and constraints, evidence grounding, deterministic validation, bounded corrections, and low-contrast scan enhancement; correction tests use a fake provider.",
+      "evidence": [
+        {
+          "resource": "repo://tests/test_agentic.py#L21-L226",
+          "version": "repo-lines-v1:sha256:c92e6e5d8693327f49cbbe23022f0b67dab37ebcfde3e58830744d0a996b73dc:eyJzZWxlY3RlZExpbmVDb3VudCI6MjA2LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI3ZjUwOTM2OGFlZmI4ZDlmOWQ0Y2EzNGViMjYxZDQ4MmMyZGZkYjU4NjM2NDc0MGMyNzQyMWI1ZGY5YmIyNzBmIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0ODkzZjQwZTM3ODFlYjg5NmM4MmQwNDZhMDgwNjdhMTFlMzVjZGYyZjFkZmFmMjZmZWE5MGI4ZGI2Njc2NDEzIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiIxZWVhNDVhMWFjY2IxNWYxYzRlODBiMThiMDFmZWU2YzljZGIzOGY5Mjc0N2I1MzlhMmFkNmFkZWJiZjQ0MzkwIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MCwiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1In0"
+        }
+      ]
+    },
+    {
+      "id": "claim_3befafb9c67149a68dc66ca01e47acda",
+      "statement": "The unit suite does not start the WSL worker, perform a live HTTP provider extraction, or run NaviDC GPU inference.",
+      "evidence": [
+        {
+          "resource": "repo://tests/test_agentic.py#L1-L226",
+          "version": "repo-lines-v1:sha256:4c165cc165f3665bdfffdbb8c60929623513f0015f6296d4e72ab310d2f7259c:eyJzZWxlY3RlZExpbmVDb3VudCI6MjI2LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI1Mzg0YmZkYjJkZjM4MGI2NTU3Y2M3YTcxZDE2ODkxNDE1YmNjYWE4NzY5OTQwNmUyMzZmNzUyYzY0MTUzODlmIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0ODkzZjQwZTM3ODFlYjg5NmM4MmQwNDZhMDgwNjdhMTFlMzVjZGYyZjFkZmFmMjZmZWE5MGI4ZGI2Njc2NDEzIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MCwicHJlY2VkaW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MCwiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1In0"
+        },
+        {
+          "resource": "repo://tests/test_core.py#L1-L148",
+          "version": "repo-lines-v1:sha256:5e51b4bd3b850d3414eb1bae802b685770eb4ff50383dca6de42247129803052:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQ4LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI1Mzg0YmZkYjJkZjM4MGI2NTU3Y2M3YTcxZDE2ODkxNDE1YmNjYWE4NzY5OTQwNmUyMzZmNzUyYzY0MTUzODlmIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiJiOWJlOWQzZWY1N2Q0ZmRiYzExMzZmZmIxM2MxNTgwNGNmZTllOWZmOWQ2MDJjN2FjZTBkMzdiNTZlNGNjYzU1IiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MCwicHJlY2VkaW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MCwiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1In0"
+        }
+      ]
+    },
+    {
+      "id": "claim_5a89d6c6414b444da1199cfece26aaa6",
+      "statement": "The documented quality gates are pytest, Ruff formatting and lint, and ty; ty excludes worker.py, while the developer guide calls for compiling it in WSL and running a real extraction for provider changes.",
+      "evidence": [
+        {
+          "resource": "repo://docs/developer-guide.md#L110-L151",
+          "version": "repo-lines-v1:sha256:ec1fb22cf231483f774de919c803b7e5633c00a515a5318ee2e911b6a91b5d19:eyJzZWxlY3RlZExpbmVDb3VudCI6NDIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUyMDI4ZGRhMDY3ZTJkNTI5YTk4NzhjZjNjYTY4NmVlOGMwMjgwNzAxNGUxNDZlZmMzNjQ0YzJlYWNmYWNmN2UiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjAxNjU5ZDZkODI2OTRmOTRlZmU1MGVlNmE5MGYxYzFhOWYyMTQ0NjAwMmZjMjNiNTRmMjY2OTRhZWQxNDQ2MWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM5Mzk3YzllMjhhMzY3NjY5ZWI3MmMzN2NkMDc4YzY1Yzk2NmE2MTNlNmViOTdlOTIxZGFmZGI4OTQ1YjUxYmEifQ"
+        },
+        {
+          "resource": "repo://pyproject.toml#L26-L38",
+          "version": "repo-lines-v1:sha256:a410eb305e872a65f672fb001ca91d5467944cf7723fc872306b8a4440996f06:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg2NzZlNjQxNDY1YTY1NTFlOWU5Y2ZmZDdmYWExZTZhNDJmOWI3MjQ4MDk4MTNjOTAzZDdlZGNiNTJmMzAwNmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ5ZTQ5Zjk1NjBkZTdlZDAzNzZiZGU5YjFlODczNjljNmUyMjM0OTY2MGQyMTEwMjI4NTY2M2RmOGYxM2E4YzgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkzYmVhOTM2OTMxZmYxMzA1NzE0OTFiYzZhMzkzMTNmODFmMDVmMGE5MmMyYzRhYzQ0Y2FhZjkwMGEwMjJiOWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImI4NGI4NmI2MjEyOGI2YmJkNGE1MmQ0ZDM4NjYzYTZmNzk3NWMwMDNmN2FmZTU3NzEwMDQ3NTlmNTllYWJmZDQifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.2",
+    "at": "2026-09-23T14:56:11.943Z"
+  }
+}

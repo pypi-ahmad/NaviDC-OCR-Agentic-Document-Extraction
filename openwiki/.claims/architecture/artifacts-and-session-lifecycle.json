@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:af34edd501d86949dc4a2f9141dd1a50c4bf8b3cf3670a0b7f92444fcbea39e3",
+  "claims": [
+    {
+      "id": "claim_3f2ab5bed5464db694b051f0e2587dd7",
+      "statement": "Streamlit identifies each stored extraction result by source SHA-256, selected page range, requested layout, accuracy policy, and schema hash, and clears the result when that key no longer matches current inputs.",
+      "evidence": [
+        {
+          "resource": "repo://streamlit_app.py#L358-L370",
+          "version": "repo-lines-v1:sha256:0df5eeaad7dd927aa79857d83ee3c91745bc3cb2de80e42d6c629fdd7fb25588:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZiYmMzNWUzZGY3ZmQ2MzVmMGU0MThhNDJmZWNmNTEwZjUzMWYxYTk3MzE4YTI5OGM0ZDdlYmU1YmIzZWYxZTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQxNGEyZmY0OWIwOGQzNGYwMzlmN2YyZGIyYWI5YjdiZDk0OGUyMTI4OTlkZmIxZWYyY2RjZTUwZDEzNzUzNWIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjFiMzVmN2Q0MDc1ZDExZmZlNWQ0OGVlMzY2YWVjOTkzOWZlNDFlYjRkNGExMWY2NDBhNDlkYzhkNTZlY2ZhNDIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjBhNzJmZTY5YTY1Nzk1NDFjYTNhZmFhNmRhYmI5OTJhZTQ5ZmVlZjk5N2I2NDQ1YzA4YjVmZTZkMzFhODFiMzcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_bf73a844ad5a42249b1e95fb0baa654a",
+      "statement": "The ZIP builder always includes Markdown, annotated PDF, HTML, and a manifest, adds optional structured artifacts only when provided, and stores extracted images under sanitized base filenames.",
+      "evidence": [
+        {
+          "resource": "repo://src/agentic_document_extraction/artifacts.py#L138-L172",
+          "version": "repo-lines-v1:sha256:71e516ba27e2bb94b77441c33e5447d62abc70ebeeb8c95152317bb9f7b27c10:eyJzZWxlY3RlZExpbmVDb3VudCI6MzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE5NGEzZDZlYTQzYTMwMDIxYjM1Njc4MTI1ZTRjZjZlOWZkY2UyNjAxNGVkYzRlODFjYTE3NDIxNGIyMThlYjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY5OTY0NDAwMmUwYzQ4MDRkYTg3NGRmOGI0YjZmNTZhMzkwN2FjN2ZlM2QwOGE1NzAwNzIxYzQ3NzczZjVhNGYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImU5MzdmYjA3OGMyODFhN2I5NDNhZTNhNzE2YmNjNjNjYjRlZWQ2ZGNiY2E3NTZkNTc2ODNiMWNlMjA4ODUzNjQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImNmY2M1ZmM1Y2NlNmNkYzdkMWE3MzRjZjFiMGUxMDE4YjI3ZjUyMWY4ZWVhNTdkMzk0Y2Q4Njg0NjhmZmQ2ZWEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_0625ccceefff463dada9849915d5da9b",
+      "statement": "The manifest records source identity and digest, page selection, generation time, OCR provider/model, layout and accuracy settings, plus structured-extraction model metadata; optional artifact mappings are conditional on supplied outputs.",
+      "evidence": [
+        {
+          "resource": "repo://src/agentic_document_extraction/artifacts.py#L98-L135",
+          "version": "repo-lines-v1:sha256:76889bae62eab1fc8918e0213bcc2addf4e890ce52edcaea51a3ba5b900ea1fa:eyJzZWxlY3RlZExpbmVDb3VudCI6MzgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFjMGJmZmM3MWVlN2Y1NThiMGRhY2VlY2RlM2NiODViZWQ2NzEyNWNiMGE3M2Y5NjlmNzc3ZjdlNWJkMTE2ZDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE0MTlhNmRjYzA0ZTIxM2EzYzdhNzdhNDU2YjAxZTc2ZDFlZjc4Y2QwMGJiZWMxZDhmODE0NThmZTkzZWRjNTYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImU5MzdmYjA3OGMyODFhN2I5NDNhZTNhNzE2YmNjNjNjYjRlZWQ2ZGNiY2E3NTZkNTc2ODNiMWNlMjA4ODUzNjQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImEyZjk4M2UxNWE0ZDA2NDQyMDc5MGU1MzMxMzQwYzlhNmU3NzQzYTA2NzA2YmMxMjY4YTA0OWY3ODc5NDU0YmQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_932a970c2e4543c9936f98d41087e960",
+      "statement": "The standalone HTML renderer escapes non-table raw HTML, applies a restrictive Content Security Policy, and does not embed the source PDF or page images.",
+      "evidence": [
+        {
+          "resource": "repo://src/agentic_document_extraction/artifacts.py#L175-L217",
+          "version": "repo-lines-v1:sha256:8d0a5b525c736decc28526304536e933eaee8bec2e55685cab0c853bc52a300d:eyJzZWxlY3RlZExpbmVDb3VudCI6NDMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYyYzgzNjdkYWM2Y2JhM2FkMzg5MjJkNzQ0ZTBjN2E0ZjhiNDA0MWJmMDliOTBjMDQ3OWNkYzg1NmRhNjAzYzMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZiM2FhOWUwMDIxMTY0MzgwMjljY2I5N2RjNzM0MjZlMWFmOWNjZjM1ZGM0OGRiNTZiZWVmOTRiZDY5Y2ZjZjIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUwZGQzNTUzYWFiYTBkYWI4NjM2ZTExOTYxNTc2NzIxMDZmMjhhODE3MDRjMzA0OWExMWIyMWZiNDY5ZjJlZmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY4ZWFmNDA1YjNhZjk0ODgxYmU3M2I2NTNhZDdiMzMwODI3NTRiNTU4YzY5YjNhZDdjNGNmNTMzZDc3NmExNzEifQ"
+        },
+        {
+          "resource": "repo://tests/test_core.py#L127-L148",
+          "version": "repo-lines-v1:sha256:7aaaf7e62fca3ded4ce4e425f70489d6a4954bad0baa8ebf47d7f088bdf76f9d:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk0OTJiNzc4YzNlZjU3MjRlY2EwNzExN2UzNmU1ZTg5Mzg4Mzg5YWJlMGZhYmMzODVjZTI5MjU5NTlhZWRiMmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI5YmU5ZDNlZjU3ZDRmZGJjMTEzNmZmYjEzYzE1ODA0Y2ZlOWU5ZmY5ZDYwMmM3YWNlMGQzN2I1NmU0Y2NjNTUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhjYzRhN2QxY2M3OTZhYmEzZTQ2NzIzMzI3ZjUxN2U5ZjgxMTk4MmQyNTBmMDcwMjk4NmU0YjU3NjRhZDk1ODkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_dc66185c55444a1197b19d2ef2839e7a",
+      "statement": "Core tests verify ZIP entries and manifest fields, Markdown table conversion, page-marker rendering, and escaping of unsafe provider HTML.",
+      "evidence": [
+        {
+          "resource": "repo://tests/test_core.py#L109-L148",
+          "version": "repo-lines-v1:sha256:e72f22cc54e1936fbceda52e69fc5731db9351315a441e98454e3edf7906a0ca:eyJzZWxlY3RlZExpbmVDb3VudCI6NDAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEwMGM2MThlMDBjMTYyNzA2Y2FjMDc0MWE2YmU2NWYyOGViZjU0YWQ0NGMwZjI5YTk0ZjE4M2IwODc1YTU3NjYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI5YmU5ZDNlZjU3ZDRmZGJjMTEzNmZmYjEzYzE1ODA0Y2ZlOWU5ZmY5ZDYwMmM3YWNlMGQzN2I1NmU0Y2NjNTUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRmYmQwMDkzMTRiYzI3MDg0MTY3MzRhMDJhZTVmZjM5YTFlNDhhMDUwYmU5MWY0M2IyZmFhOTIwMDJjNjJiZmMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://tests/test_core.py#L51-L107",
+          "version": "repo-lines-v1:sha256:8ddeb1083840d4fac75297f3c2f2cdb4989c48a0de5d76b46652a723d8fbce4e:eyJzZWxlY3RlZExpbmVDb3VudCI6NTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhmNGFjZGE3NDUzZGZkNmE3N2VmYWFlOGI3OGQ2MGM1ZGFlMWU1YTIxYWI1MjU4ZGVkMDExMmNkODUxMjUzMDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjdkOTE4ZWVlNjQ4NjdmYjIwZWMwOTM4MjdjYjQ1N2Q5NTcwOWJjMmZmYWZkMTBjODQzZGMwMmQyNGQ5MzRiNGIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM0NTM3Mjk3YWMyYjlhYTc2NjE0NmJkNTg1ZmEwY2FmYjExMjY5MDJhOGUyYjU1NzFiYmJkYjU4MzRiY2NkZWIifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.2",
+    "at": "2026-09-23T14:56:11.943Z"
+  }
+}

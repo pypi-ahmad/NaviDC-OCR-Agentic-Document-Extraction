@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:ac593306439f2e80b95b57ea9ebb5c6dc47cca517df95b01c1ecf5671c2f8bbd",
+  "claims": [
+    {
+      "id": "claim_274c7e3ab64b47e6b5d174cdbbacf2ce",
+      "statement": "Schema compilation supports nested objects and arrays, rejects unsupported keywords, enforces size/depth/field limits, and hashes canonical schema content together with the field guide.",
+      "evidence": [
+        {
+          "resource": "repo://src/agentic_document_extraction/schemas.py#L160-L178",
+          "version": "repo-lines-v1:sha256:4ef61ac3d1d8837cde006bc5cd9e73c9398473a5f06be38cbdc03a371c15ab3f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc4MGY5MWUxMjk0MWUyY2MwZjQ4NDIyZjg3NTExNjQxMGUyYzlhNmM2ZGE5MWM4ODQ4MDUyMTViZjQzNDJmMTUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdlYjcwMjU3NTkzZGEwNmY2ODJhM2RkZGE1NGE5ZDI2MGQ0ZmM1MTRmNjQ1MjM3ZjVjYTc0YjA4ZjhkYTYxYTYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImIzNzliMjY0OWM1N2NkNzNiYjQ4Y2VmODA2N2QzNGI2ZTA1NWViYjUyMjc4ODU0ZmQyOGVlODZlZWU4NzNlOGIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFjYjg3Mzk2YTY2MTU5YWRkY2M1ZjRiZDNhYTE3ZGMwOTJmN2MxNTlhZmVmMGU3MmVlNzhlMjFhYmM2OTJlMTkifQ"
+        },
+        {
+          "resource": "repo://src/agentic_document_extraction/schemas.py#L20-L48",
+          "version": "repo-lines-v1:sha256:704bcd020ab5a1bd6ac1d00ffa1c3e7ac94c409d0925282cd5378d1612a664e7:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdlYjcwMjU3NTkzZGEwNmY2ODJhM2RkZGE1NGE5ZDI2MGQ0ZmM1MTRmNjQ1MjM3ZjVjYTc0YjA4ZjhkYTYxYTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjMxZTk3ODc1ZGU5ZDBiYzVhMTAzMDk0NmYwNjU5ODQ0MzQ2ZmRmNTU3MDBmODk3MzVkYWZlMjFjMWNkMzhhMmYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImM3OTJhMTg5MDk4NGQ1Yjk5MmRmN2YwYWNkNjFmZDBmZWQ5NjFjMDMzMGYwMGNiNDUzZjk5YzgwNjBiZDAxY2EiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjcyZWZjNWY3ZDg0ZjMyOGVhYWE3NzY0YTNkNjEzNTk4OTQyMjJjOGMxMjM4MjY1MWMwZTE5NWY2NDExYmE3YjMifQ"
+        },
+        {
+          "resource": "repo://src/agentic_document_extraction/schemas.py#L219-L300",
+          "version": "repo-lines-v1:sha256:7e3853f3c42e221676a417b37d314978866d74cb6960d833ece23e7b5264ec65:eyJzZWxlY3RlZExpbmVDb3VudCI6ODIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2NWUwZDFmNGQwZmZkNWRmMmFhODlhZGQ5MGFlNzJiZDEwYjE1NmQ2ZmYzOTdiNzE0M2Y4MGMxZGMzODlmNjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdlYjcwMjU3NTkzZGEwNmY2ODJhM2RkZGE1NGE5ZDI2MGQ0ZmM1MTRmNjQ1MjM3ZjVjYTc0YjA4ZjhkYTYxYTYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY4NTRlYzY3ZTJlN2I0NTcyMjU2YmM1MmZkMGZhOGMyYzAwODhkMzdmNjFiNTQ4ZTJkNDlkMDVmMTE3YjhhZTciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjEzNjU2NThmZGEyNDNiY2VlZTc2MTgwOTg3ZDE3ZTkzYTgxODA3MWNjNmQwZjdkMGNhNDViZWI5ZjBiNTQyYTMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_44dc43e9fe5d458f9309f2fbc05eda9d",
+      "statement": "The semantic provider requires OPENAI_API_KEY and OPENAI_BASE_URL, verifies the configured endpoint exposes gpt-5.6-luna, and sends schema, optional field guide, OCR Markdown, and correction context in a strict structured request.",
+      "evidence": [
+        {
+          "resource": "repo://src/agentic_document_extraction/semantic.py#L117-L172",
+          "version": "repo-lines-v1:sha256:bf056a70863a5f566bbad61bc488e3d4c8f12508e883be876def7954411d4779:eyJzZWxlY3RlZExpbmVDb3VudCI6NTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY5ZjRiNDVmYjdjYzhmNDA4ZGZhZWM0MDdlZjZkZjA4YTY3YjQ0ZDkxNTMwNDdhNzk0ODg5MjIzYjkyZjAyNjgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMzZWQyNjIwYjE5YmFkOTJhNmQwYzU3YjlmMWU0NmFiZjA3ZTU1OTZkZGVkOTYyZDU1MzMzYWM1NTljNDcxMjMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJjZTkzM2E2YjZiYzJkYzVmNzI1NWVhZTJlN2RhZmQ4ODQ2ODI2NjVkZjMyMDE3YzM5MDE2NzUzMjNmNDQyNGQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImJlZmRmM2RjODEyZTliZDVlYzBjZjE5NzExNjkyNzUwODFkZWRjZWIyYWQ3MDdhMzRkZmI2YWMxMWUwM2VhNmQifQ"
+        },
+        {
+          "resource": "repo://src/agentic_document_extraction/semantic.py#L47-L64",
+          "version": "repo-lines-v1:sha256:d085f0185fb850487177b0ad64cac3574033fb6c51f0a3d0054bc209dfab137b:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAwMWZhNDM2ZmIzMWJkOTQ5NTI0MTI5ZmM2MWUwNGI3MzAyZWVlN2RlZjM4M2VhZWZkYjhhMTE2NzM3OWY2MzYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA5ZDA3MDA2M2MzNGNlMzZkM2RmZmI4ZTE4MDZjNTY5NDBiMjZhYzBiNGE4NWZmMWI4NzQwMTgwZThkYTdiZDgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY1MTA5NzUwMzVlMTVhMjc3MDU2MTU5NDVkNzFiZGZmZDNlODE2NTE4N2UzYjc0YjEyNjdiMWExZGE1ZjEwN2UiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQ1MTVhMGU0MTk1MGEzNWFjMjgxOWE3MTQ2YmMxNjNmMGMwNjQ0MDk2MTYwYThhYzhhNTFmNjE0MzkwNzdiMjcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_2bb20e96bcfd4f0cac32bafbccf8b7c5",
+      "statement": "Grounding maps OCR middle_json blocks to source pages and binds a model quote to a block only when the normalized exact/fuzzy match score reaches 0.90.",
+      "evidence": [
+        {
+          "resource": "repo://src/agentic_document_extraction/grounding.py#L22-L85",
+          "version": "repo-lines-v1:sha256:052f9bc49e004762747f87c3ca6398b86c57740c6f4bfca94660764570855120:eyJzZWxlY3RlZExpbmVDb3VudCI6NjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZkMmUwNzEzMjNlMTgzYmZiMWU3MTdkZjMwYmViOTUzNGM3MDVhNmVlOWE0ZjEwMTBkOTI1MDNlNDQ3MTA4MTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM5MjIwNGM2NWY1MDJkYzE2NDU0YjYyNDA4NTZhOWFiN2FkZTAwM2E4ZTlmODYzMzNlYzBiN2M5ZTQwOTQ5MWQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY3Yjc2Yzc0NTAxNjliNWZjNDlmZmEwYmU4ZTQ2NmE5Yjk1MDY0NWRkODAwMmNiMzJjY2E3NTY5NTc1ZjdiOTAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjEwNTdiNTgwMjQ4ZDY1MDRiYjM5MzU1MmUwNWQ0ZDI2OTRlM2I4ZDE3NzA5YTRmYWY5YTRlYTljNmJmZTk2NjQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_cef455c28b4044e3a8af0f815c012766",
+      "statement": "Structured extraction permits two correction calls by default, retains only a strictly better objective candidate, and replaces non-null values lacking a supporting OCR block with null before returning.",
+      "evidence": [
+        {
+          "resource": "repo://src/agentic_document_extraction/semantic.py#L183-L286",
+          "version": "repo-lines-v1:sha256:9200d85fab434f6e52903cb24004f0eb0ba79bbfe30ec762b14ea5822b137b10:eyJzZWxlY3RlZExpbmVDb3VudCI6MTA0LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiIzMTYxMDJjNzZjNGY2YTUwYjMzYTc0MzY1OTUyMjQ4YzNkZjQ5MWRhN2VjOTIyMjJhMjY3OTU1NDc2NzVhNjYzIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI3ZWI3MDI1NzU5M2RhMDZmNjgyYTNkZGRhNTRhOWQyNjBkNGZjNTE0ZjY0NTIzN2Y1Y2E3NGIwOGY4ZGE2MWE2IiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI2MTk5NDY4ZmQyYjIwNDdmMzllZDA2YTFiMjRjNjcyNjI3MmJkYTg5OTlhMTJkNDJmOTZkMGQ5Mzk4N2ViN2EwIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiI5NTA2NDY5ZTliZjg3Y2JlMjkxYzQ0ZDcxZTE0M2ZlZmQ1MmU1OWMwZjg2MjhkMDYyZGJjNmJhYzVhYWM2ZDU5In0"
+        },
+        {
+          "resource": "repo://src/agentic_document_extraction/validation.py#L45-L110",
+          "version": "repo-lines-v1:sha256:e99998630adfc57199bc86cfb7423549d53ce53d5f094598acfbcc0b033bf77f:eyJzZWxlY3RlZExpbmVDb3VudCI6NjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjliMzU3NzJhM2EzMDYxM2NiNzBiZDUxOWVlM2I2NTMwMzA3OTk1MDFlNzM5YjVkYmEwY2FiZTYyYjJkNjk5ZjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE0YjI1NzVjMTM3MDE3N2UzMDcyMTA2NDAyN2RlM2ViMjdmMzJlZTZjOWRjYzQxZmNlYzdlOTY3YWFjMGJhNjEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQxNTlkYTZlZmQ1ZTQ5NGU5NzkzZmZmOTZiNzZjZDlmMjI0N2VhY2U0ZDQ2MTQ3NmUxZGU0Nzc3NzQ4YTk2MTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZhYzQ4MjY5NzI5NzVkNjMyZmIxYzJiMTkwMzM0YTQ0YWQ4MmUxYjY3ZmExMDUyNjcyMjk0YjNkYjI5NjdjYzgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_35b24c17ee174842b24ac697a344414d",
+      "statement": "Automated field statuses are verified/review/blocked, while manual review actions are accepted/corrected/rejected; manual review appends an audit event and clears prior evidence when the value changes.",
+      "evidence": [
+        {
+          "resource": "repo://src/agentic_document_extraction/models.py#L11-L18",
+          "version": "repo-lines-v1:sha256:7f2e3b76510aa22f5e7f948430884d58381fda4f2dccab503bdcb4ac4f12f3a7:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNmQ3M2Q1YTc2YjRiYzhlYjllMjQ3MDJlODc5N2RhZjIyNTY4MzA1NjAxNzQxNDIzM2M5ZTRmZmJjYjUxNTA2NSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzhhMGEzMTc3MDhmYzk4OWQxOTAyOWE5Yjc2NTA3ZGE4MzY3YjhkYjAyM2VmMzU2NjkxYzQ3NDc0ODJhZTU1ZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzQzMGEwOGY5OWU3M2M5NTA2MTQxZTJjYjBkZjZjZGQ5MzY1ZWRkYTlmNDBjYjBlZTBjYjNhN2NkZGFhMWEyMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjg4NTIzY2VhZWEyYjNiNjU0NGFkNjRiN2I3YzY4MjRkNjUyM2UyMTRhNjJjNzA1MjNlOGU5OGE4OGJiY2RlOCJ9"
+        },
+        {
+          "resource": "repo://src/agentic_document_extraction/semantic.py#L288-L335",
+          "version": "repo-lines-v1:sha256:14be9fe793c6f7910ecf0016f5d50808fe72b15d98aaa834d8ae77c9c4cf038c:eyJzZWxlY3RlZExpbmVDb3VudCI6NDgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ1OTE1ZjYyMzhjNzZlNWUwZWRkMTA3MzdkNjEzMDdkYzFhYjc0NjU4ZTExODEzYTg5ZmIwOTA0Mzk0NjBmOTIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdlYjcwMjU3NTkzZGEwNmY2ODJhM2RkZGE1NGE5ZDI2MGQ0ZmM1MTRmNjQ1MjM3ZjVjYTc0YjA4ZjhkYTYxYTYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhiOTc0ZGE0MDg2MzJhNGFhN2UyYWU4MGI4NjAzOTFhM2RjZDgyMTFjNzllY2FkN2NhOGU5NTEyOGIwMDE4MzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjlmYWQ1Y2M3NDhkNDkxNDBmZWUzZjhkMzRkMDc3ODRlYWYzMTQ1ZGMzOWNhNWNjN2E5ZGRkZDk3MDkzOWQzN2UifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_5df8b4df58ea4d2aac6e355c819bc136",
+      "statement": "Tests cover schema handling, quote grounding, validation rules, grounded correction, bounded retries that null unsupported values, and one low-contrast enhancement case.",
+      "evidence": [
+        {
+          "resource": "repo://tests/test_agentic.py#L21-L191",
+          "version": "repo-lines-v1:sha256:768f325208d38bc81cca03793672cb28691e79c7008167e9248cfb8b475f85ea:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcxLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI3ZjUwOTM2OGFlZmI4ZDlmOWQ0Y2EzNGViMjYxZDQ4MmMyZGZkYjU4NjM2NDc0MGMyNzQyMWI1ZGY5YmIyNzBmIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiIwMWJhNDcxOWM4MGI2ZmU5MTFiMDkxYTdjMDUxMjRiNjRlZWVjZTk2NGUwOWMwNThlZjhmOTgwNWRhY2E1NDZiIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiIxZWVhNDVhMWFjY2IxNWYxYzRlODBiMThiMDFmZWU2YzljZGIzOGY5Mjc0N2I1MzlhMmFkNmFkZWJiZjQ0MzkwIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiIxMmJiODU0MTZkODhlOGIwYjE3ZmZjZTQwNzIwMzJkOGFlZTJlYzdmOTU5N2E4OGViMGEwNjNkOTNkNzY3Y2RmIn0"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.2",
+    "at": "2026-09-23T14:56:11.943Z"
+  }
+}

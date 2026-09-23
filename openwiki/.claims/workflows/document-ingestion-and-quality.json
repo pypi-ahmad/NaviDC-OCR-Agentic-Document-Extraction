@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:ff65e6ec0ec03b190fc214c41dfab963ea7483c6514348af017b48452e5ade55",
+  "claims": [
+    {
+      "id": "claim_7eb95c31653b4cffb78046f546ddf4a2",
+      "statement": "inspect_document rejects unsupported, empty, oversized, password-protected, damaged, or unreadable uploads; supported images are EXIF-corrected, flattened to white, and converted to one-page PDFs, with only the first TIFF frame used.",
+      "evidence": [
+        {
+          "resource": "repo://src/agentic_document_extraction/documents.py#L127-L216",
+          "version": "repo-lines-v1:sha256:e2b208d3d1a6a31b3f5d6c31768b78a5357e0df5164b24202237f0592ea4ce1c:eyJzZWxlY3RlZExpbmVDb3VudCI6OTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYxOTk5OGM1OTI0OTQ0NDUyYzU0YTlmN2NmNjkwZWMwZTBiYzBmMzQ4OTNhNDA5MGEzMWJkZDlkMDRjMjU0ZmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdlYjcwMjU3NTkzZGEwNmY2ODJhM2RkZGE1NGE5ZDI2MGQ0ZmM1MTRmNjQ1MjM3ZjVjYTc0YjA4ZjhkYTYxYTYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ3OWNkMGFlNjgwMWJiN2YwMGE4NTg5ZDM4YjU0YzY5OTQxOTlmMjNiY2E2MzY5MjE0ZDA5NzRmZDQ5ZWU3OTgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg3MzVmMjM3ODY2NjZkMDVjMzNlZjdkMjBjMDU5NzM0ZmY2ZWM3NTAyZWRhNmVkMDkzNmNkYTdkYmViYmJjNGEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_2b0614de894c40538a74de5e6c413187",
+      "statement": "Page selection uses one-based inclusive source-page numbers, validates the range, converts to zero-based PDF indices, and preserves source order in the selected PDF.",
+      "evidence": [
+        {
+          "resource": "repo://src/agentic_document_extraction/documents.py#L73-L124",
+          "version": "repo-lines-v1:sha256:1914247de7fa45b5dbae9a135e938cc9f6d2cd6c9160e39cd3040f7f10a85bcd:eyJzZWxlY3RlZExpbmVDb3VudCI6NTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdhZmI2MDA1MzllZWEwNmU3MmRkNWY3OTU2ODg3NDhlY2YzNWI3ZjNlMDNlYTNkYzliZGM0NzVhOWQyZWNjYTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJkYjdhZDE1NDQ4ZmJmZjQwNWQxNDNkZWExNWFjNDJlYTE0MzI3YzkyODMzYzhlOTRkNTAwZDUzOGQ2NmQxZWMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhiNTc4MmI2NjIzNTYwODY3OGM0MjQyZWI4ZjUzNGRhZGMwNjk4OTVjZmE5YmM4OGJkMTM4NmE2ZjYwNGM5MjgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVkNDRmNGJhMWMxODQwNWMwN2VlMjYyOWUxZTM4MDI5NDM0OGY3ZGI4OGU2MmJlOWIyODU4NjJkZDcxMjg1MTAifQ"
+        },
+        {
+          "resource": "repo://tests/test_core.py#L24-L49",
+          "version": "repo-lines-v1:sha256:32567d7a81752d02119840f96f3964299993b265b614033d0752ef24115a9182:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYyMGExOGJhOGUwZDNmNTM3NTYwOTkzODdiZDE5MzJkMzc1ZjdkY2IzY2M0YmQ5YzBiYmJkYTQ1YjI1ZTg0MzMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE5OGIwNjNkOWI0N2U2NTM3OTYyNTU3MmNjZTE5NzY2OWQ1NzY3ZTEyYzE4YmUwNzU2NTJiOGNkOTgxY2U4ZDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIxZjdjZDg2YWY1MzQyODkzYTE0ZjRiYmJjODUyNzljMWNmMWEyMjFlNTZiZTk0MTk3NTcxYzYyOTk1NDFiZTYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_62d394f55d704df68492c63be475a6eb",
+      "statement": "Quality preparation renders Maximum at 400 DPI and Fast/Balanced at 300 DPI, records heuristic scan signals, and applies only warning-triggered enhancements for non-Fast policies in a fixed sequence.",
+      "evidence": [
+        {
+          "resource": "repo://src/agentic_document_extraction/quality.py#L26-L139",
+          "version": "repo-lines-v1:sha256:c0fa2c6a6cb1498c0b2674fa5dd4c60657f11827740014e9b1f67ba44f6c5485:eyJzZWxlY3RlZExpbmVDb3VudCI6MTE0LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI2YzUwYjM3OWE4NWY0MDdlOGM2ZmNhODc2NmUzYThlNWQ4Mzc0MjUzNTcwOGY0OWM2Yzc4NDlmZWM4MzVkZGQ0IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI3ZWI3MDI1NzU5M2RhMDZmNjgyYTNkZGRhNTRhOWQyNjBkNGZjNTE0ZjY0NTIzN2Y1Y2E3NGIwOGY4ZGE2MWE2IiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI4NTg5NjY5YmQyNzFhMmVkYmU5MTkyOThmOGY1ZGVhOTk0YmRlNDM3YjFkZTFkOWJkMzZmMjlmNGMyYmZkMzM5IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJiNzBmMmM0OTY4MjFhNDI2MDQ5MzgwNjU1YjQzMTk2ODI5YTBjOTVlMzQ2ODkzNGYwNDk0MWVhNzY2YmJkMDFkIn0"
+        }
+      ]
+    },
+    {
+      "id": "claim_9c6efa89b5c84e858266ec92cf2e34ab",
+      "statement": "Auto layout selects Segmentation only when a majority of pages have skew, uneven illumination, or clipped-edge risk; otherwise it selects Detection.",
+      "evidence": [
+        {
+          "resource": "repo://src/agentic_document_extraction/quality.py#L141-L150",
+          "version": "repo-lines-v1:sha256:f0124891319225909e30f43608e27e26e5fe27aa532330e90642bc297e88101e:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNhMTRhYTQyMDgxYmE0YzhkODIyN2JiOGU5NWUzZDkzNzc1NWJkODY4NzUwMDM5ZTM4YzQzNDgzYjZmZjQxMGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2MTU5OGMyZjBjMzkxYTZhMTA4OTM3OWNmNmE5OWVmYmI1M2M3NTkxNjNlNzU3NTkwMGVmZjg4NWJjNGEwYmQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY4MjUzOGZjYzQwOTFlMWE2NTU5NzFjMTlkM2Q2ZjI2NmJjN2MzYWFiYjBkNDA1Nzg1ZmYwZTA3ZDRiNzI1MWYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjY4ZjY4Y2M4ODdiN2Y0ZjViOTNjZmFmODc0OWNlODkzZGJhNmM4YTk4ODA5MjE4OTVlY2FiZWJjYjcyZmZmYzQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_0414d9ba89d34671abee60211d6d4859",
+      "statement": "Tests cover inclusive range checks and source order plus a synthetic low-contrast warning/enhancement case; they do not establish scan-quality accuracy across a corpus.",
+      "evidence": [
+        {
+          "resource": "repo://tests/test_agentic.py#L181-L191",
+          "version": "repo-lines-v1:sha256:9eb30dd70de437e46d409386ad16e1a701b02d679390508d44c129dd1b6dda4a:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjlmM2ZiMGU2MTRmN2Q2Yzc1NzAwZDhlNGQ4Nzk0MDMwMmY4YWQ0Yzk4OThhYzA1NTk4MjlmMDkyYjgzZjYxOTgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjgxZWM3NTUwMDE1MTM5YjIxMmE5ZTIyNTliOTkzYjUxMTkxZTdjN2NlNDJhZTdjNWY5NjJjMDU2YmExMTBmOTEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjEyYmI4NTQxNmQ4OGU4YjBiMTdmZmNlNDA3MjAzMmQ4YWVlMmVjN2Y5NTk3YTg4ZWIwYTA2M2Q5M2Q3NjdjZGYifQ"
+        },
+        {
+          "resource": "repo://tests/test_core.py#L24-L49",
+          "version": "repo-lines-v1:sha256:32567d7a81752d02119840f96f3964299993b265b614033d0752ef24115a9182:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYyMGExOGJhOGUwZDNmNTM3NTYwOTkzODdiZDE5MzJkMzc1ZjdkY2IzY2M0YmQ5YzBiYmJkYTQ1YjI1ZTg0MzMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE5OGIwNjNkOWI0N2U2NTM3OTYyNTU3MmNjZTE5NzY2OWQ1NzY3ZTEyYzE4YmUwNzU2NTJiOGNkOTgxY2U4ZDUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIxZjdjZDg2YWY1MzQyODkzYTE0ZjRiYmJjODUyNzljMWNmMWEyMjFlNTZiZTk0MTk3NTcxYzYyOTk1NDFiZTYifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.2",
+    "at": "2026-09-23T14:56:11.943Z"
+  }
+}

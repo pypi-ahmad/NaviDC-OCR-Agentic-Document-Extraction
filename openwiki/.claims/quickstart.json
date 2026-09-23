@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:29dc7e9e831d7eb43c73e47f5acca095354efef6e4d933420859d25442d3680f",
+  "claims": [
+    {
+      "id": "claim_8a2349a0fee2490ca703dff03a14d20c",
+      "statement": "The documented setup installs the Streamlit project's dependencies with uv separately from the NaviDC WSL GPU runtime.",
+      "evidence": [
+        {
+          "resource": "repo://README.md#L44-L65",
+          "version": "repo-lines-v1:sha256:3c7b9cb5b6f95fec9818e6a96b80c6098682132fb6fd1997db2b80bbf6b7fb50:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA1M2ZiMjQ5MTZhYTk5ZDZkNTdiMTI2NzM1ZDVjZDNlNGJkOWVlNmQwNGU3YTFhYzViYTE5MjNhNGQxMTJhMGQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE4NzgxMjgxMTg1Y2I0NDU0YzVjMDZjZmI2ZjhhYzQxMDU2NGNhMjkxYjdjZDdmMGI0ZTIyZjIwNDU5M2FmZjciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg1YzEzYjBkMmMzMmY1NDcxNjczM2FhY2I1NTg1NzgxMGQ2ZGY2ZjFhM2E3OWQwOTM2NGQ5ZDk2ZTIzN2Q0MWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjllOWE0MTZmNjIzNTU5OTdmMGVhNTEwYjgzM2JmODAxODUyNmFkNDRjYTgwZmFlYzdkODIwZGRmNjRhNWJlZjkifQ"
+        },
+        {
+          "resource": "repo://docs/tutorial-first-extraction.md#L11-L38",
+          "version": "repo-lines-v1:sha256:ed7758ec0ceff39cc389b9908a525bb6564889ab8225cdb6f5e0b7f579f95ec4:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIzMjZjMWM0NmMyYThkNmUxNTQxMjJjMThlNDY5MjAzMzExN2JjMzljZjRkY2Q5YWIxMTc2NjZhZjNhYzkxYjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg2ODk0YWViNjJkZmU3YmQyZDBiZWMyZmRkMzcyZmRkOGUzNWQzNDY3ZGEwZjZmYTIxY2UwNWMxYmUxOWNhODYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjYxMzg3NTNlMDVhOTRkNDg0MDk5NDdjZTU4ODM5YTMyZDU2YTc1Nzg4N2ViZDY5NTMxNDFhYmVmZGE2ZTEyOTkifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_45b5fe54256c4d86931fa53f2ae45d07",
+      "statement": "The Windows launcher runs Streamlit on port 8741, and the NaviDC worker is started lazily when the first extraction is requested.",
+      "evidence": [
+        {
+          "resource": "repo://README.md#L76-L81",
+          "version": "repo-lines-v1:sha256:d9efcd94aac5a3fa65c0dfcba04aace62c8a4652d8dfe7ea05f8489c5f639e4a:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOWQ2YjYwNWZlNjgyNDk0YzE5MGM5MWFjMjU1MjRmYWI3MTNjNTJjYzQ4ZjU5MDE0ZjBlNmI3MjIwNjkwYjc0MiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMGUyYmEzNWI5NTU4NWQxNTAwYjZhOWQ0NTcxMjA5ZmZhZjc4NDk4OTU1ODIwOWNkZTZkNDYxYjZlODBlZTMxYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZWRjN2RiOWU4ZWJlZWJiMWMxMDA4ZTZhYTZlY2ZlMjgzMzIzNTU2MDQ4ZDE0ZDk0M2JjYTZiNjJhZDY4MWM0MSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjAyNzA2ZWNkNjg4OTUxYjk0OGY3NWMwMDg3YTI1MDk3MjA2MzRhNDhiZGQ5M2QxNjFkNDQ4MDBmNzBlNGI4MyJ9"
+        },
+        {
+          "resource": "repo://launch.cmd#L35-L45",
+          "version": "repo-lines-v1:sha256:08b9fb94548885bb9e20e1e795a025bc2923463eb572704f0623d456f620c9f9:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY1NjRiZWFlOTk4NjQ3OTQ3NWU1NDI5OTNjOWRkYjA1YjYzMzFkZGRjMDljZmNkMzllYjI4ZTdkM2JkOWUyNDgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE0NzYxOTQ2YzI1MTUzZmU0Y2YyZTk3OWZmYTVjZmVlY2M4YzE3ZWE4ZDU0MTI1M2EyODU2N2E4NjQ5NmRjYWQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZiODlhOWFiYzU2N2RhODBmMTNiNjIwMWI1YmI5MjYzMzMyN2E1MTQ2MjU3M2I5ZmVlMWRhZDRhYzlmODQzN2MiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFkYjlkMTk5OTY2N2UzNGRiNzhhYjg3Mzc4YjNiZDFjYjdhODI0MWM0M2Y0ZTRkZDlmMzEwODk4OTRlNzg1MjAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_39119cb072094ac182124e2efc53e071",
+      "statement": "Structured extraction is optional; the default workflow can produce OCR artifacts without it.",
+      "evidence": [
+        {
+          "resource": "repo://README.md#L88-L96",
+          "version": "repo-lines-v1:sha256:a1b397cad8daca8e6ef3f297e079a0e2a497acffa487f95080e32a4f6cbdfe5a:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzZjNjRhZmI1ZDlmNjE4YmQ2Yzk3ZmE2N2RjYmI5YjNmMmE1OGJmNzRkZjlhNmIwMjIwODY1ZjNmNWE1ODFiYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYWU3MWMwMjc0Y2QxMzAyMzI3NWM1ZTcwYWJhODFhNThjMzdkOWE4MWVhYWZhNDk3MGEyYTE2ZTRkNDc4MmYyMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYmVlMDhiOTA2ZGE0OTMxNTdmZDFhZTU1NjJmZDdjYjVmMTUzYjVkYWZlYTRlNzBjYTg3NDMyYjE1NzA0MGRmMyJ9"
+        },
+        {
+          "resource": "repo://streamlit_app.py#L153-L181",
+          "version": "repo-lines-v1:sha256:65bc3b6bb5c6f756fa5d798c73fc633f970eb1602a9ae2f28339cdb653abd81d:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUzMzc0MDIyM2U4MTBkODQxZjEwNjU3MzAwODU0ODgzMTM2ZmM5ZjQ3NzE3NTg3YWViODU3M2NlNzg3NWQxNTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU1OTQ2OTBjMGNiYmE0ODE5ODhmZmE3MGMzMmI5OGQ1Y2VmODFjN2IzYWRkOWU0ZTMwNzU3ZDRiYTc0ZjI1NmYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkzMTM5M2Y2MWQyNmQ1NDk1NTc5MjQ5NzU0MDMxZGMxZTQ4M2ZjZTM1NTAzM2E0ZDM1NDZiOWMyZGU4ZjRjYWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk2NTQ2NWNjZGYxMmUyMmMwNDNjMjRmZDFiNzA4MzAxNzliMjY2MTQ3NDUxMGNkY2NiNDg1ZDAyNDFkNjAzZWQifQ"
+        },
+        {
+          "resource": "repo://streamlit_app.py#L212-L221",
+          "version": "repo-lines-v1:sha256:d0454fc0eef4526f6e26c2282c07a66b268b2fb099b3ce33e8af186068d6d901:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMyNTY0YTNhNDVmNDE1MjYxNTBkYTFhOWVmYjE4NDRkMGI4ODlmZDRhZTQ4OWVkNDBhNmQxNDg0MjY1YTNkMGMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjllYzk0OTUwZmIwY2E3NTVhYTdiOWNlZDg2OGZhMzdkZmEyMzNiNzk5OTcyMzM0NjhkNjY0ZjYzZDYxOTA5OWIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM5ZTkzNTJmNmVhY2M4ZGViODE3OGM5MjY0MDRlMzZmYTAyNDhmMzAwYTY1YTBmOWQ4MjZiODE1ZWIwYTdjZmUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjMyMDZkZWNhNTE3Y2Q1MWNlNDZmMmE2Y2JiNGRkNmFmYWQ1YzE2MjViNzE0YWU1MTgwZDc4MmVlMGVmODRmOTIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_5f8a97b6eb8e40878decc2a7309f8991",
+      "statement": "The app stores its current extraction result in Streamlit session state and invalidates it when the content hash or selected settings change.",
+      "evidence": [
+        {
+          "resource": "repo://streamlit_app.py#L358-L370",
+          "version": "repo-lines-v1:sha256:0df5eeaad7dd927aa79857d83ee3c91745bc3cb2de80e42d6c629fdd7fb25588:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZiYmMzNWUzZGY3ZmQ2MzVmMGU0MThhNDJmZWNmNTEwZjUzMWYxYTk3MzE4YTI5OGM0ZDdlYmU1YmIzZWYxZTkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQxNGEyZmY0OWIwOGQzNGYwMzlmN2YyZGIyYWI5YjdiZDk0OGUyMTI4OTlkZmIxZWYyY2RjZTUwZDEzNzUzNWIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjFiMzVmN2Q0MDc1ZDExZmZlNWQ0OGVlMzY2YWVjOTkzOWZlNDFlYjRkNGExMWY2NDBhNDlkYzhkNTZlY2ZhNDIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjBhNzJmZTY5YTY1Nzk1NDFjYTNhZmFhNmRhYmI5OTJhZTQ5ZmVlZjk5N2I2NDQ1YzA4YjVmZTZkMzFhODFiMzcifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.2",
+    "at": "2026-09-23T14:56:11.943Z"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:05e52abe514dd08cdf2bdfab9f8b5dac9dc902e61462190229dce5744f512924",
+  "claims": [
+    {
+      "id": "claim_614f231cb50f42afaf93dd0faa18c7e1",
+      "statement": "The Streamlit side uses the OcrProvider protocol and ProviderOutput contract; NaviDcProvider implements that contract over HTTP without importing NaviOCR or vLLM.",
+      "evidence": [
+        {
+          "resource": "repo://src/agentic_document_extraction/provider.py#L54-L85",
+          "version": "repo-lines-v1:sha256:e2a5b7e8678797fec765bf8b22b8f54112735662f50a0922a70d67cfb169994e:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZiMzhkMmM5NGJkMzMxMmJkZjMxYjlmODYzYWI1MTk5NDVlZGU0ZmRjYzJhNTJmZTIyMTRmMGU1NTUyZjkzMjgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk5MGE5OTQ5ZTUxZTg5ZTM2YmEzMWYwOWUyZGY2YmM0YzNmNmE0YTY0NTQxNDVhOTU4OTJmMDM5M2FhY2JhMTciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA1MTcwN2FiNmRkNDM5ZTZhNjgxOGE4YmMzMjE4MTQyMzQ3N2JiYzliZjEyZTU5MjcyMjllNTNmMTcwOTgyZDIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc1YjBjZGU2NzkxNTAzMDIzN2JiYjg2NDBhOGM4NDUxM2YwMGRlM2JlMWY2YzQzODE5ZjY3YjJhOGJmNWQ1MTkifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_665cc1bd22f14d56befa316fcadcf10e",
+      "statement": "NaviDcProvider reuses a healthy worker or starts one on demand, applies bounded health/startup/extraction timeouts, and maps transport or archive failures to safe provider errors.",
+      "evidence": [
+        {
+          "resource": "repo://src/agentic_document_extraction/provider.py#L87-L180",
+          "version": "repo-lines-v1:sha256:7b940e7c2f96374971520a1c1760b8c38077ce99612738fa48c231f7b76881f8:eyJzZWxlY3RlZExpbmVDb3VudCI6OTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU0MTA3ZTAyNDQ3Mzk0MWFmMmU4NGNiMGI3YWIwMjZmY2ZjMDhjMDZlMGZmZDNjZTNhZDEzNDY0NTY2NjRkNGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg1NzBiOGUzMDQ4NjI0YzQ0NTE3ZTM1M2RhMzJiY2E4NjAwOWQwOWM3NzljNTg2NGEzNTQ4YTBkODAwNGYxNGMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE4ODIxYjhkZDNjZTg3OTkzZDhmY2E2MmU3Mzg4NTIxMzYzMzZiZTE5YmRkMzc5NTdmMzFhYjRiYWQ3OTBkNTEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJhODBhMWI5YzEwNmJiMDZmYmUyMTYwNDA2ZTA2ODJhOWU5OTc4MzI1MjRlNzM1NTRkZGQyM2QyMWVlZWJmZDEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_61c1147c52e64197b2547823b561d15e",
+      "statement": "The worker validates layout, DPI, page mapping, and upload size, applies NaviDC configuration before importing its engine, and serializes extraction calls with an asyncio lock.",
+      "evidence": [
+        {
+          "resource": "repo://src/agentic_document_extraction/worker.py#L26-L116",
+          "version": "repo-lines-v1:sha256:3ea5717ab096b5ac5b16d472c48e897e12eba17b8146f2978071cfca2b39f198:eyJzZWxlY3RlZExpbmVDb3VudCI6OTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE4NWZkMTBjYTQ2YjY5OWYyZmM5N2RkOWQzM2NmZjIxMzY4MWUzZTY5NWRiOWZhZWQyOTI0ZmNiZDkwODljOWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdlYjcwMjU3NTkzZGEwNmY2ODJhM2RkZGE1NGE5ZDI2MGQ0ZmM1MTRmNjQ1MjM3ZjVjYTc0YjA4ZjhkYTYxYTYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg4OTE1MjdkMGQyMTFkNzYzYmEyZjc5ZTI3MTQ2MzM4MTQyNzkwNWE1NjI4M2FmZGM0MzIwYzMwYjNlYjZmZmIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImVmYjk4M2QzODFkZjkwMWEwMTk1NmYyYzc5NzIwMTQ0NmJkOGZkM2Y0ZjQxOWRiNTI3NTc4OTQzNGRlYWE5OTAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_552e85b1ae114f1f890a3c02768c8fac",
+      "statement": "The worker temporarily overrides NaviDC's PDF rasterizer to honor the requested DPI, restores it in a finally block, uses a request-scoped temporary directory, and returns required result.md, annotated.pdf, and middle.json entries with optional images.",
+      "evidence": [
+        {
+          "resource": "repo://src/agentic_document_extraction/worker.py#L118-L158",
+          "version": "repo-lines-v1:sha256:0e9555b9bd4318b56c3d9bda825341537041e964718994689467aacde634d76b:eyJzZWxlY3RlZExpbmVDb3VudCI6NDEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ3YjdmZWUwYjQ5ZDdiMTBiYzlhMjA0ZDMwZmQ1NDU4ZmQ0NDIxNzVmMWI3YzA1ZWM3YTAxMDg2Zjk0Zjg4NDYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3OGM5MGZlYmU0OWZiMzEyODk5ZDc1Zjg5YTM0YzRlMDgzYzUzOTkxZmVmN2UxNDQ2MDg1Yzk3YTcxMmU2NjEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ0NmFjMDdhMDg5MTgyYTlhMWE0MjNiY2JkYzdiYjNkZmU1ZTA4Nzk0MDY3OGYwMWRkNjY5ZjdlZjYxM2JmNzUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_a8054bbfd665424983ced082f73c1990",
+      "statement": "The unit tests use a fake provider for structured-extraction behavior and do not exercise a live WSL worker or GPU inference.",
+      "evidence": [
+        {
+          "resource": "repo://tests/test_agentic.py#L119-L226",
+          "version": "repo-lines-v1:sha256:2430c6c5d6fd2ff2fd76debd22cf563e24fcc4adb3397c4e8f8e90688e9abbb9:eyJzZWxlY3RlZExpbmVDb3VudCI6MTA4LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI5Y2Y3YWU2MTJlODMyMTNhNTBjZDNhNmQ3OGYzYTVkYzFkYzZlMjE1YjhkNDAyOGIxODFmZWFmZDFhOTE2MjVhIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0ODkzZjQwZTM3ODFlYjg5NmM4MmQwNDZhMDgwNjdhMTFlMzVjZGYyZjFkZmFmMjZmZWE5MGI4ZGI2Njc2NDEzIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJiYzEwNzcyZjQ1MDc5Njg4YTQ1ZWRmOWY1ZDg3MWNjODIwNDE5ZDdmNjUxNGYyMTg1MTYyNjA3Zjg3ZjY5ZTJiIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MCwiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1In0"
+        },
+        {
+          "resource": "repo://tests/test_core.py#L1-L148",
+          "version": "repo-lines-v1:sha256:5e51b4bd3b850d3414eb1bae802b685770eb4ff50383dca6de42247129803052:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQ4LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI1Mzg0YmZkYjJkZjM4MGI2NTU3Y2M3YTcxZDE2ODkxNDE1YmNjYWE4NzY5OTQwNmUyMzZmNzUyYzY0MTUzODlmIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiJiOWJlOWQzZWY1N2Q0ZmRiYzExMzZmZmIxM2MxNTgwNGNmZTllOWZmOWQ2MDJjN2FjZTBkMzdiNTZlNGNjYzU1IiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MCwicHJlY2VkaW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MCwiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1In0"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.2",
+    "at": "2026-09-23T14:56:11.943Z"
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:eb8bf26a8613a46c626a3a8ff364e7b8c35f0bd29c9fe7553506dedfb0a91e4e",
+  "claims": [
+    {
+      "id": "claim_7ded7eee7f444660b69245c2d5da0e11",
+      "statement": "The Streamlit process coordinates upload, page/quality preparation, OCR, optional structured extraction, review, and packaging, while OCR is reached through NaviDcProvider rather than imported in the UI process.",
+      "evidence": [
+        {
+          "resource": "repo://streamlit_app.py#L126-L210",
+          "version": "repo-lines-v1:sha256:8a89c9db6c40b461627039b5247799e0bc3954ffb96cdc6aace45d6763a41190:eyJzZWxlY3RlZExpbmVDb3VudCI6ODUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM2ZmE5NTU3MWM3Zjk3OGZmMzhiMDA3YjdhMTM3ODU1NWNmZWZiODJjNjUzMTg3YzhlMDRlMWI1ZTkyNWJkZDAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdlYjcwMjU3NTkzZGEwNmY2ODJhM2RkZGE1NGE5ZDI2MGQ0ZmM1MTRmNjQ1MjM3ZjVjYTc0YjA4ZjhkYTYxYTYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhiOTc0ZGE0MDg2MzJhNGFhN2UyYWU4MGI4NjAzOTFhM2RjZDgyMTFjNzllY2FkN2NhOGU5NTEyOGIwMDE4MzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjUzMzgwZWRiYTY1Mjg5YTYyMzM1MjNkNGRlNTIxNmE3ZGMwNWNjMDRhZTNiNzMyYjEyNWYwNzMyOWQ2OThlNmUifQ"
+        },
+        {
+          "resource": "repo://streamlit_app.py#L20-L51",
+          "version": "repo-lines-v1:sha256:00625f25c36b2170bc790d56ba80666ddfda16404ff38599bf2b50146fb70635:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdmYWUzZmM3ZjczYjhlM2EwODYxNmU4YmY4ZTY2MzQ4ZjYyNDNhMTk2NmYwMGRhNDI1NGFhZjJkOTM0NDRmZDMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQzZGY5ZjA1ODdjNWY5ZDgyZWFhY2M3NDNmODY1MDA5NDAzMGM3OGY3MTY1YmVmYmRmMGJmOTljYTZlYTc0NDEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVkOWU5OTQyMDFiZjg3YmFkMTdhNzMyYjlhOWUwZDIxMDRiYzI2YWRhOGI1Mjg0NmFhOGEwMTQyMDlhNGIzZjUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFmNTE4OTNmYmRkMTIwYmMyYWVkMDdjNDE2MWY5N2I3NjMxZDlmMGU1OWFmZjMxNGFiZjFhZTNhNjljNmU1ZTkifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_88d8eff0e5364205ade0029a1cb7ecd9",
+      "statement": "NaviDcProvider exposes the typed OCR boundary over HTTP, and the WSL worker is the module that configures and imports NaviOCR for inference.",
+      "evidence": [
+        {
+          "resource": "repo://src/agentic_document_extraction/provider.py#L54-L85",
+          "version": "repo-lines-v1:sha256:e2a5b7e8678797fec765bf8b22b8f54112735662f50a0922a70d67cfb169994e:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZiMzhkMmM5NGJkMzMxMmJkZjMxYjlmODYzYWI1MTk5NDVlZGU0ZmRjYzJhNTJmZTIyMTRmMGU1NTUyZjkzMjgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk5MGE5OTQ5ZTUxZTg5ZTM2YmEzMWYwOWUyZGY2YmM0YzNmNmE0YTY0NTQxNDVhOTU4OTJmMDM5M2FhY2JhMTciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA1MTcwN2FiNmRkNDM5ZTZhNjgxOGE4YmMzMjE4MTQyMzQ3N2JiYzliZjEyZTU5MjcyMjllNTNmMTcwOTgyZDIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc1YjBjZGU2NzkxNTAzMDIzN2JiYjg2NDBhOGM4NDUxM2YwMGRlM2JlMWY2YzQzODE5ZjY3YjJhOGJmNWQ1MTkifQ"
+        },
+        {
+          "resource": "repo://src/agentic_document_extraction/worker.py#L21-L44",
+          "version": "repo-lines-v1:sha256:010b195d8b47c30ad27d7be277e69e2a776caa59dbf4018785d1ef5ec3c3a93b:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFiYzNlNDQ1MTE4Y2U1ODRmZmI5MGZlMTNkMjc3NWIxZjAyOTE1MzFlY2I5ZTFiZDAzMGIyMjAzYTQ2YzRiZDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImYxYmVlNzIzNTUzNzE3NzhkMmZlMWQ3YThmZjI4ZTY0ZTk2YWU0NDE0ZmUzYjkyZDc4MjQzM2M2ZjI5MDhhYzMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY1YjE0ZWQ3OGZiN2RhYzMxODdjYjY1ZmU4NzYxOTE3NWUxMTgxNTY2M2Y0OGZiN2NiNGY1NTgzMzY5ZWZhZjkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjMwMmY1YTgyMzE0MjRkMzZiODRkYTc4MjhjNmNmNjgzYTI4YTk0MDAxZDMwMTgxOGM0ZWFhODFkNGRiZjMxZTgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c17c06f09dcf448193e716a9d3ed7c6d",
+      "statement": "The semantic request contains OCR Markdown, the confirmed schema, an optional field guide, and correction context; the provider requires OPENAI_API_KEY and OPENAI_BASE_URL.",
+      "evidence": [
+        {
+          "resource": "repo://src/agentic_document_extraction/semantic.py#L122-L146",
+          "version": "repo-lines-v1:sha256:f8a5620a5a88237c70064e45b27333b7a0713ebff7034b5b596a9d93ba45da52:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM5OGY2ZDNlNzgzNDI1ZTBiOTM5ZGZkMmY4YjU4YjgzODM3ZjRmOTdkMWVmZWE0ODYyODA4ZDgyNWVlYzZiMjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIzZWZkNWEyNjg4YmNhYTE0Yjk2MzYwMzY3YmIxNGI5OTA5MTI4NDVhMzY0ZTRhOTBlYTU4YTkwYjMzZmZhYzUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRlMGY3YmE2YmM3MGJlOWIxNDk2MWVlZWQ4MTY5NTE5MDhlYmQxMjYwOTU3MzVlOTRjNzAyMjQ4Njg4NjRmNmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIwNGFhMWZmZjJjYTUyNzkxNDQ0NzM4ZWRhNWYwMDU3YjY4ZTBjNjk5MmFhMDQzZjQxMDczZDQyYTM5MjhkMDYifQ"
+        },
+        {
+          "resource": "repo://src/agentic_document_extraction/semantic.py#L47-L63",
+          "version": "repo-lines-v1:sha256:3063d98a8f601b3576e68bdb7577cffa7ca6e7530ce3d1e7217fd63631e378e7:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAwMWZhNDM2ZmIzMWJkOTQ5NTI0MTI5ZmM2MWUwNGI3MzAyZWVlN2RlZjM4M2VhZWZkYjhhMTE2NzM3OWY2MzYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY0NTk3ZDBlNTI4N2E4YjgzZmQzYzE3MDA3MjhhMzhjMzNjMjBjNmExNzQ4NTAyMTdjMDE3OWY3NjJlZjhiZDYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY1MTA5NzUwMzVlMTVhMjc3MDU2MTU5NDVkNzFiZGZmZDNlODE2NTE4N2UzYjc0YjEyNjdiMWExZGE1ZjEwN2UiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjY5MTgwOTI5MjVkMGVmMTYyNWQ0NTQwMDg3NGYwN2IwZTM5OGZmMDYwZDZkNzVhNWZhNzBmYWYyOTRlOTcxNDUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_60c14489a85d4213b553e7d5f2f51fd9",
+      "statement": "The repository defines deployment as trusted single-user local use and warns against exposing the application ports to untrusted networks without additional controls.",
+      "evidence": [
+        {
+          "resource": "repo://SECURITY.md#L3-L18",
+          "version": "repo-lines-v1:sha256:f48e1767257e263fb953b2e9ea32bae53007525e71e7e4a513a52d65f433a33d:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM1ZTQyYjg2NDBlMDk0ZjlhNWUxMWI4YzUwYzM1ZTg5Yzg5NGEyN2YzMWRhMjdjZDEyOTAxMWMxMjJhNGQxZTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjoyLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA2MzU0NzY0ZmFlYmJiMGZjZWEwMGM4Nzc3ODQ5MDI4ZTAyNTQwNzEwNzVkMmVlMTQ2ZDliNGYzMWQxODJjNWIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjU5NDQwZWE1MGFhYmMxMDBiNGU4MzliZmNjNTljYzMyYzMwYmFlNjUyMmY4MzhiZDA0YmJjNGRlOWYwNWY0YWQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_9347a265619b46a3855d18149f7573e2",
+      "statement": "The document layer rejects unsupported, empty, oversized, password-protected, damaged, or unreadable uploads and normalizes supported images to PDF before extraction.",
+      "evidence": [
+        {
+          "resource": "repo://src/agentic_document_extraction/documents.py#L127-L218",
+          "version": "repo-lines-v1:sha256:ace8e67c371bef93662aed745ef86a95ece1a5026193ad7abb0b1ca5dd943f88:eyJzZWxlY3RlZExpbmVDb3VudCI6OTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjYxOTk5OGM1OTI0OTQ0NDUyYzU0YTlmN2NmNjkwZWMwZTBiYzBmMzQ4OTNhNDA5MGEzMWJkZDlkMDRjMjU0ZmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk3ZGNiODAyOTI0ZDEwN2NmNzMwODBlMzY0MmY2NjczNzA2ZTFiODFjOTAzZTRhODQ5ZjM1OTlhYWZmNGY4YzUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ3OWNkMGFlNjgwMWJiN2YwMGE4NTg5ZDM4YjU0YzY5OTQxOTlmMjNiY2E2MzY5MjE0ZDA5NzRmZDQ5ZWU3OTgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImYxN2UxMGZmZDBjYTUzZDZjNDhjNTc2OTFmMzRkYWMzZDVmYTJjMzAzYjFmNDBhYzA0NmI2YjIxNGFiYTU4ZTQifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.2",
+    "at": "2026-09-23T14:56:11.943Z"
+  }
+}

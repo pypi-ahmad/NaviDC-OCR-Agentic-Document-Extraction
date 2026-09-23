@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:73fea08ccceacdc04459421ab09df1ffaede2fce3e6a57cf909cee302c096072",
+  "claims": [
+    {
+      "id": "claim_09058348ecb04ec08f2bcba75b0edc90",
+      "statement": "process_document selects the requested PDF pages, prepares them under the chosen accuracy policy, resolves Auto layout, starts or reuses the worker, and submits the prepared PDF with source-page mapping and render DPI.",
+      "evidence": [
+        {
+          "resource": "repo://streamlit_app.py#L126-L151",
+          "version": "repo-lines-v1:sha256:5626c7e5a0ee79a4fd97c2f006b281d42b4bec3bafc5d29ac065b6501620eaed:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM2ZmE5NTU3MWM3Zjk3OGZmMzhiMDA3YjdhMTM3ODU1NWNmZWZiODJjNjUzMTg3YzhlMDRlMWI1ZTkyNWJkZDAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA3MTJhYWRlY2M1ZjIwMThjNzQ2ODdmYjBiYjUwZjE4NmM4NmQ4OWFkMDM5MjQ4NDYxYWQzZDQyZTg2NDI4MDciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjhiOTc0ZGE0MDg2MzJhNGFhN2UyYWU4MGI4NjAzOTFhM2RjZDgyMTFjNzllY2FkN2NhOGU5NTEyOGIwMDE4MzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjgzMjE2NTA5ZmZlMWUwYTY4NmNiMjQ2MDJhZjczNzZkMDc1Mjc3NWRjNDUxMzcwM2VlMjk0NmE4ZmIwZDdiZjUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_06f533bf525644d5b66fc47be4999621",
+      "statement": "The worker serializes OCR, calls NaviDC's async parser, restores its temporary rasterizer override, maps output to source-page markers, and returns required Markdown, layout JSON, annotated PDF, and optional image assets.",
+      "evidence": [
+        {
+          "resource": "repo://src/agentic_document_extraction/worker.py#L118-L158",
+          "version": "repo-lines-v1:sha256:0e9555b9bd4318b56c3d9bda825341537041e964718994689467aacde634d76b:eyJzZWxlY3RlZExpbmVDb3VudCI6NDEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ3YjdmZWUwYjQ5ZDdiMTBiYzlhMjA0ZDMwZmQ1NDU4ZmQ0NDIxNzVmMWI3YzA1ZWM3YTAxMDg2Zjk0Zjg4NDYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3OGM5MGZlYmU0OWZiMzEyODk5ZDc1Zjg5YTM0YzRlMDgzYzUzOTkxZmVmN2UxNDQ2MDg1Yzk3YTcxMmU2NjEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ0NmFjMDdhMDg5MTgyYTlhMWE0MjNiY2JkYzdiYjNkZmU1ZTA4Nzk0MDY3OGYwMWRkNjY5ZjdlZjYxM2JmNzUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://src/agentic_document_extraction/worker.py#L43-L48",
+          "version": "repo-lines-v1:sha256:2dd4b59e6e88fdf705d9a61e6cb5b25ce63fe54c0902f9c9eca776b171813b6a:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjBmMDEzZDZjMDI2OTgxY2NhYzczM2FmZWU5ODlhZjBkYTAyOTJhNTEyYjY3YTM4YjNmNTdhNDNlOWQ5ZDBjZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZGM2ODUyN2E0MzI3ODY3Y2MyODg1NjE2NDFlMWI3OGExMThiZWFhMGQ2M2EyNzlhOTNhNDFmZGUyMGIwNzlhZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTRmMzRlNWIzYWYyMWI1MzBlZGNlNjA1ZjNhM2U4OWY4Mjg0NjA5ZTEzYTg4MGNkMTdjZjRjMjFjZDM0NjVjOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOWU5NjhmNmE3YmQ3YjhmOWU0MDc1YThmZDQ1Yjg1YTJjNTdjMTA2MDY2NWU0MTllZjRjNTJkMzAzOGU3YjZkNSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_817a960559f74f869173c866b8e1fdba",
+      "statement": "Structured extraction is optional; it validates and grounds model fields, allows at most two correction calls by default, and nulls non-null fields that lack a supporting OCR block.",
+      "evidence": [
+        {
+          "resource": "repo://src/agentic_document_extraction/semantic.py#L183-L279",
+          "version": "repo-lines-v1:sha256:6d55bdc893c059553dd3f2574073a6479eec7b9fd6826bf04aec4b2bd80ffa39:eyJzZWxlY3RlZExpbmVDb3VudCI6OTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjMxNjEwMmM3NmM0ZjZhNTBiMzNhNzQzNjU5NTIyNDhjM2RmNDkxZGE3ZWM5MjIyMmEyNjc5NTU0NzY3NWE2NjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRkZGVlYzdhZDA1NGE1YzIwODA0Y2ExYjI5MmI2MThmMWI4NWQ2NzllZjM3MzIxMDNhZDY4OWJhOTlhZWMzOGMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjYxOTk0NjhmZDJiMjA0N2YzOWVkMDZhMWIyNGM2NzI2MjcyYmRhODk5OWExMmQ0MmY5NmQwZDkzOTg3ZWI3YTAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjI1OWQ4ZDg1YjBiZWFkYTgwODViNzUxYmYwNWVjZDBiMTVmNDZhN2MyMWIxZjVjNTUzZGIyMGZhOWQ4OTNhMTkifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_b3b5165d3d74473da4add7ddea3475ec",
+      "statement": "At Maximum accuracy, if structured extraction still requires review, the app runs the alternate layout and adopts it only when its objective score strictly improves; a semantic error is retained separately from successful OCR output.",
+      "evidence": [
+        {
+          "resource": "repo://streamlit_app.py#L153-L181",
+          "version": "repo-lines-v1:sha256:65bc3b6bb5c6f756fa5d798c73fc633f970eb1602a9ae2f28339cdb653abd81d:eyJzZWxlY3RlZExpbmVDb3VudCI6MjksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUzMzc0MDIyM2U4MTBkODQxZjEwNjU3MzAwODU0ODgzMTM2ZmM5ZjQ3NzE3NTg3YWViODU3M2NlNzg3NWQxNTciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU1OTQ2OTBjMGNiYmE0ODE5ODhmZmE3MGMzMmI5OGQ1Y2VmODFjN2IzYWRkOWU0ZTMwNzU3ZDRiYTc0ZjI1NmYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkzMTM5M2Y2MWQyNmQ1NDk1NTc5MjQ5NzU0MDMxZGMxZTQ4M2ZjZTM1NTAzM2E0ZDM1NDZiOWMyZGU4ZjRjYWMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk2NTQ2NWNjZGYxMmUyMmMwNDNjMjRmZDFiNzA4MzAxNzliMjY2MTQ3NDUxMGNkY2NiNDg1ZDAyNDFkNjAzZWQifQ"
+        },
+        {
+          "resource": "repo://streamlit_app.py#L200-L205",
+          "version": "repo-lines-v1:sha256:f07256860600644d419e1136ff368ce5fee87b0dfd3b850d21e633cb8be634da:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNWM5YWQ0ZTUyNWM3M2JiMzEwZTM5MWIzYmRlNTVlZjIyNDlmN2VmNWU4NmFhOWQyNmFmN2I4YjNiMzM4NjY0OSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMmE5ZjhjMmJjN2ExNDFhMDIyYWYzZmViOGFiNTAwOGVjMjU3NTdlZjI0YWNkMDQ5ZjUwODlhNzRiN2M5YWU4MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYmNkMTQ1NmY4MDYyYWJiYWI5Zjg3MjhjZDMyMTVmMmNjNWI2MTE0Yjk0MDE2NGZkZWU0NTYyNThmODU5ZjFhZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjdmOGZjMmRkYjU1NjA5OGZlMzZjZGU3NjQyZGFhZWM0YTEwNGI0YWVlMzNkYTQzMmU5Y2RlYTJjMmZkOGJhMCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_fbc4a81a71f2445d8e979b4ea3e1b49d",
+      "statement": "A provider failure is surfaced as an error rather than synthetic OCR output; current tests exercise deterministic behavior and a fake semantic provider, not GPU inference.",
+      "evidence": [
+        {
+          "resource": "repo://src/agentic_document_extraction/provider.py#L139-L180",
+          "version": "repo-lines-v1:sha256:17e961b1617e66e89137e3501258729e5807e862e66f8ab63b13b0e8e1f104e9:eyJzZWxlY3RlZExpbmVDb3VudCI6NDIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY5ZjRiNDVmYjdjYzhmNDA4ZGZhZWM0MDdlZjZkZjA4YTY3YjQ0ZDkxNTMwNDdhNzk0ODg5MjIzYjkyZjAyNjgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg1NzBiOGUzMDQ4NjI0YzQ0NTE3ZTM1M2RhMzJiY2E4NjAwOWQwOWM3NzljNTg2NGEzNTQ4YTBkODAwNGYxNGMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ5MzI5YjJjNjM0YTQ1YzYyODA2NjUwNmJiOGY2NDEzNGZmMzFkYmI0OGQ5ZTE3ZTI4MGM4YTMyZTA5YzA2OTEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJhODBhMWI5YzEwNmJiMDZmYmUyMTYwNDA2ZTA2ODJhOWU5OTc4MzI1MjRlNzM1NTRkZGQyM2QyMWVlZWJmZDEifQ"
+        },
+        {
+          "resource": "repo://tests/test_agentic.py#L119-L226",
+          "version": "repo-lines-v1:sha256:2430c6c5d6fd2ff2fd76debd22cf563e24fcc4adb3397c4e8f8e90688e9abbb9:eyJzZWxlY3RlZExpbmVDb3VudCI6MTA4LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI5Y2Y3YWU2MTJlODMyMTNhNTBjZDNhNmQ3OGYzYTVkYzFkYzZlMjE1YjhkNDAyOGIxODFmZWFmZDFhOTE2MjVhIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0ODkzZjQwZTM3ODFlYjg5NmM4MmQwNDZhMDgwNjdhMTFlMzVjZGYyZjFkZmFmMjZmZWE5MGI4ZGI2Njc2NDEzIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJiYzEwNzcyZjQ1MDc5Njg4YTQ1ZWRmOWY1ZDg3MWNjODIwNDE5ZDdmNjUxNGYyMTg1MTYyNjA3Zjg3ZjY5ZTJiIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MCwiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1In0"
+        },
+        {
+          "resource": "repo://tests/test_core.py#L1-L148",
+          "version": "repo-lines-v1:sha256:5e51b4bd3b850d3414eb1bae802b685770eb4ff50383dca6de42247129803052:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQ4LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI1Mzg0YmZkYjJkZjM4MGI2NTU3Y2M3YTcxZDE2ODkxNDE1YmNjYWE4NzY5OTQwNmUyMzZmNzUyYzY0MTUzODlmIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiJiOWJlOWQzZWY1N2Q0ZmRiYzExMzZmZmIxM2MxNTgwNGNmZTllOWZmOWQ2MDJjN2FjZTBkMzdiNTZlNGNjYzU1IiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MCwicHJlY2VkaW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MCwiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1In0"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.2",
+    "at": "2026-09-23T14:56:11.943Z"
+  }
+}

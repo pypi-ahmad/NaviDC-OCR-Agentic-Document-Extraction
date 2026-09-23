@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "pages": {
+    "/openwiki/architecture/artifacts-and-session-lifecycle.md": {
+      "pageVersion": "sha256:af34edd501d86949dc4a2f9141dd1a50c4bf8b3cf3670a0b7f92444fcbea39e3",
+      "completedBy": "codex",
+      "completedRunId": "6040ecbd-2e9a-4482-bf99-fa8da04ec4a5",
+      "gitHead": "2817521af53a75e4335ba52c2115fa74135681b5",
+      "sourceFingerprint": "sha256:cf95d64765a642e53b2e739554aa96e577f5bc605f4714dfa54fdfa938d7b170"
+    },
+    "/openwiki/architecture/provider-worker-contract.md": {
+      "pageVersion": "sha256:05e52abe514dd08cdf2bdfab9f8b5dac9dc902e61462190229dce5744f512924",
+      "completedBy": "codex",
+      "completedRunId": "6040ecbd-2e9a-4482-bf99-fa8da04ec4a5",
+      "gitHead": "2817521af53a75e4335ba52c2115fa74135681b5",
+      "sourceFingerprint": "sha256:cf95d64765a642e53b2e739554aa96e577f5bc605f4714dfa54fdfa938d7b170"
+    },
+    "/openwiki/architecture/system-boundaries.md": {
+      "pageVersion": "sha256:eb8bf26a8613a46c626a3a8ff364e7b8c35f0bd29c9fe7553506dedfb0a91e4e",
+      "completedBy": "codex",
+      "completedRunId": "6040ecbd-2e9a-4482-bf99-fa8da04ec4a5",
+      "gitHead": "2817521af53a75e4335ba52c2115fa74135681b5",
+      "sourceFingerprint": "sha256:cf95d64765a642e53b2e739554aa96e577f5bc605f4714dfa54fdfa938d7b170"
+    },
+    "/openwiki/operations/local-runtime.md": {
+      "pageVersion": "sha256:fe80fa2ad43462c9c7b66a347bd2d4d4456ff035dc4734fe79f83a993c41b270",
+      "completedBy": "codex",
+      "completedRunId": "6040ecbd-2e9a-4482-bf99-fa8da04ec4a5",
+      "gitHead": "2817521af53a75e4335ba52c2115fa74135681b5",
+      "sourceFingerprint": "sha256:cf95d64765a642e53b2e739554aa96e577f5bc605f4714dfa54fdfa938d7b170"
+    },
+    "/openwiki/quickstart.md": {
+      "pageVersion": "sha256:29dc7e9e831d7eb43c73e47f5acca095354efef6e4d933420859d25442d3680f",
+      "completedBy": "codex",
+      "completedRunId": "6040ecbd-2e9a-4482-bf99-fa8da04ec4a5",
+      "gitHead": "2817521af53a75e4335ba52c2115fa74135681b5",
+      "sourceFingerprint": "sha256:cf95d64765a642e53b2e739554aa96e577f5bc605f4714dfa54fdfa938d7b170"
+    },
+    "/openwiki/testing/validation-and-tests.md": {
+      "pageVersion": "sha256:b85465d63d3e4782893eda12e64e5253497fb6e6f1ede02635e424fda2dd029c",
+      "completedBy": "codex",
+      "completedRunId": "6040ecbd-2e9a-4482-bf99-fa8da04ec4a5",
+      "gitHead": "2817521af53a75e4335ba52c2115fa74135681b5",
+      "sourceFingerprint": "sha256:cf95d64765a642e53b2e739554aa96e577f5bc605f4714dfa54fdfa938d7b170"
+    },
+    "/openwiki/workflows/document-ingestion-and-quality.md": {
+      "pageVersion": "sha256:ff65e6ec0ec03b190fc214c41dfab963ea7483c6514348af017b48452e5ade55",
+      "completedBy": "codex",
+      "completedRunId": "6040ecbd-2e9a-4482-bf99-fa8da04ec4a5",
+      "gitHead": "2817521af53a75e4335ba52c2115fa74135681b5",
+      "sourceFingerprint": "sha256:cf95d64765a642e53b2e739554aa96e577f5bc605f4714dfa54fdfa938d7b170"
+    },
+    "/openwiki/workflows/ocr-extraction.md": {
+      "pageVersion": "sha256:73fea08ccceacdc04459421ab09df1ffaede2fce3e6a57cf909cee302c096072",
+      "completedBy": "codex",
+      "completedRunId": "6040ecbd-2e9a-4482-bf99-fa8da04ec4a5",
+      "gitHead": "2817521af53a75e4335ba52c2115fa74135681b5",
+      "sourceFingerprint": "sha256:cf95d64765a642e53b2e739554aa96e577f5bc605f4714dfa54fdfa938d7b170"
+    },
+    "/openwiki/workflows/structured-extraction-and-review.md": {
+      "pageVersion": "sha256:ac593306439f2e80b95b57ea9ebb5c6dc47cca517df95b01c1ecf5671c2f8bbd",
+      "completedBy": "codex",
+      "completedRunId": "6040ecbd-2e9a-4482-bf99-fa8da04ec4a5",
+      "gitHead": "2817521af53a75e4335ba52c2115fa74135681b5",
+      "sourceFingerprint": "sha256:cf95d64765a642e53b2e739554aa96e577f5bc605f4714dfa54fdfa938d7b170"
+    }
+  }
+}

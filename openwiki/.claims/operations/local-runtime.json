@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:fe80fa2ad43462c9c7b66a347bd2d4d4456ff035dc4734fe79f83a993c41b270",
+  "claims": [
+    {
+      "id": "claim_54d5b08f50b64045b5e5b7e00ea11102",
+      "statement": "The Windows launcher runs Streamlit with uv on port 8741, terminates existing matching app processes and listeners on that port, and stops a healthy WSL worker so the restarted worker's logs attach to the launcher.",
+      "evidence": [
+        {
+          "resource": "repo://launch.cmd#L1-L45",
+          "version": "repo-lines-v1:sha256:d822a34fc44c06165dd2fb8715c19d7a00223f1daefadad1d366090ae5e35bf6:eyJzZWxlY3RlZExpbmVDb3VudCI6NDUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjlmODEyOWM4NTdiYTdiNzU4ZjAyYzljYjJjNzg2ZDU4OWFlMzU5MGEwNGU2OTI1MGM0YzM2Y2NhMWRkYTAxMmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE0NzYxOTQ2YzI1MTUzZmU0Y2YyZTk3OWZmYTVjZmVlY2M4YzE3ZWE4ZDU0MTI1M2EyODU2N2E4NjQ5NmRjYWQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFkYjlkMTk5OTY2N2UzNGRiNzhhYjg3Mzc4YjNiZDFjYjdhODI0MWM0M2Y0ZTRkZDlmMzEwODk4OTRlNzg1MjAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_3ff2936d0f7c4afbbd942cf1fbfb6dd5",
+      "statement": "The provider defaults to the NaviDC runtime path in WSL, worker URL 127.0.0.1:8742, Ubuntu-24.04, and port 8742, with environment variables available for runtime path, URL, and port.",
+      "evidence": [
+        {
+          "resource": "repo://src/agentic_document_extraction/provider.py#L183-L214",
+          "version": "repo-lines-v1:sha256:1b0c7d9180a9daadb49cd8ab02494ed7546bd119e34eb542f5dc1d44d07eaff7:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdiN2YwZGMwOTBjNGE0NmQzOTM1MWU0MjU2ODg1OGRjYmM5ZjViNzI1N2IwNTlmMGJmN2VkM2I1NGVlODA2MTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFiOGY2NzFhY2FlNzc5ZTdjOWVhMmQ0YTg3M2Y2MGViODhjNDIxOTM4NGQ3MDRiZmY0Y2U5OThhYjUyMmZhOGYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjIwMDU3NjIwNzRjOGNhNTkwZmJlOTM2Mzk4YjUyNWFiNTAxMzZlMmJhYzE4MDNlNTdkMWVkMzMwZmNjYzNhODIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjgwOTc5MWNkODM2ZjAyMWIzMDI1NGM5MzdkYWZmMzlmODc0ZWJjNTQ0YzNjNjg0YzlmYjM0YTg0MDhlMzA3MzIifQ"
+        },
+        {
+          "resource": "repo://src/agentic_document_extraction/provider.py#L24-L26",
+          "version": "repo-lines-v1:sha256:635462312102030ba8cd72babb973b302e02f589c13fa33a14b32ddb0bd4c01d:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNTFiZGFiNTUyODJjMzQyZmMyODJkNDBlYTVjYTIzNDNiOGNmZTYzNzA1YzUwZjkzZWZhNTJlNDkwZjVjNWJlZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzE3ODc1MzUyOTczZTA4YmUyYWM0OTZmNzQ3MmNjNGJhMGZiOGU2YjRjZjRiNTAwMmMwYjI4ZTA4OWE5YjM3YSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNGQ3NjQzMTAzZjI1MzI1MmExMTZlNDJmOWE2YzQ1ODYzM2IwN2UzOWY2ZDM2YTYyNzk1NjY2MGE1NTg1ZmQ1NyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTQyZGFkMTMzYTMyMzczMzQ0ZjQ1NmI1YmVhNGY0YzY1MGMwNmY0ZWE4MGYxODZkN2Q3MzMxYzQ0Nzk2OTU4YSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_443ae60e3a894720923d33c629348956",
+      "statement": "The worker configures an 8192-token model length, 0.85 GPU-memory utilization, and one PDF worker, and serializes extraction calls with an asyncio lock.",
+      "evidence": [
+        {
+          "resource": "repo://src/agentic_document_extraction/worker.py#L29-L48",
+          "version": "repo-lines-v1:sha256:591cf7d14e3bfba36c1943b35558c1d5325a4c0a1cf51b4c994d6e0d7e5a3e04:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM0ZmNjMWIyMmZkZmQwMTQyNzZkNjJmMWNlYTE1OTZlYmZiNzk3NDczMGNlY2RlY2I4ZmRhMDRjYjYwYjAxZDQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRjNjg1MjdhNDMyNzg2N2NjMjg4NTYxNjQxZTFiNzhhMTE4YmVhYTBkNjNhMjc5YTkzYTQxZmRlMjBiMDc5YWYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImVhZjM1ZWIwNWYxODQ2ODg1NDUxMmQ0MWU1M2NmYjFlODk3ZmQzOTdhNWRhYWExYWFmZWVkZDNiODk4NmM2ZmUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjllOTY4ZjZhN2JkN2I4ZjllNDA3NWE4ZmQ0NWI4NWEyYzU3YzEwNjA2NjVlNDE5ZWY0YzUyZDMwMzhlN2I2ZDUifQ"
+        },
+        {
+          "resource": "repo://src/agentic_document_extraction/worker.py#L99-L116",
+          "version": "repo-lines-v1:sha256:2709b8d7dfd0fa578c76fd64ee7abb9daf22f6e6dacabeb3aea6a9680e8222c8:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQyZjIxMTgzZjY0YmY0NTM5ZTRkNDMwOTMxNTRiMTdmYzhkYjM4ZGU3Y2U0YWFkZWU0MzA1NGJkN2MyNTIzMDYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdlYjcwMjU3NTkzZGEwNmY2ODJhM2RkZGE1NGE5ZDI2MGQ0ZmM1MTRmNjQ1MjM3ZjVjYTc0YjA4ZjhkYTYxYTYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImIwYTBhMTY5ZjcwNjRlNDQyNWRiZDcwOTU1Y2U4YWI1MDM1MmZmYjRiYmU5OGY2ZDYxMWI0YTE2ZWY0NDM4ZjEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImVmYjk4M2QzODFkZjkwMWEwMTk1NmYyYzc5NzIwMTQ0NmJkOGZkM2Y0ZjQxOWRiNTI3NTc4OTQzNGRlYWE5OTAifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_b86a6615fa2e4364945c0ba00663166b",
+      "statement": "The supported deployment is a trusted single-user local application; exposing ports 8741 or 8742 to an untrusted network requires additional security controls not provided by this project.",
+      "evidence": [
+        {
+          "resource": "repo://SECURITY.md#L3-L47",
+          "version": "repo-lines-v1:sha256:15527c0e5722505159d4ab54c6b25ba716e4132c1f356f908e7c66160a4778ed:eyJzZWxlY3RlZExpbmVDb3VudCI6NDUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM1ZTQyYjg2NDBlMDk0ZjlhNWUxMWI4YzUwYzM1ZTg5Yzg5NGEyN2YzMWRhMjdjZDEyOTAxMWMxMjJhNGQxZTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdlZTJiYTcyOWY2YjliZjE4OTNjNTlmNDhmNjViZjdmZDU5ODgyNTE4NDhmNGJiNTEyZDJhNjA1NmIzYjNmNmEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjoyLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA2MzU0NzY0ZmFlYmJiMGZjZWEwMGM4Nzc3ODQ5MDI4ZTAyNTQwNzEwNzVkMmVlMTQ2ZDliNGYzMWQxODJjNWIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjRiZmI1Yzk3YTVlMjE4ZTkxOTU1NTRjOTk5NDZiOWU3N2I2NTQxOTI1MTg4MzgxZjNiMWZkMmE2YjFlNTUyOTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_cb005ffa5a8d4f118104daccfc814671",
+      "statement": "The Streamlit configuration sets port 8741 and a 100 MB upload limit, while optional semantic extraction requires OPENAI_API_KEY and OPENAI_BASE_URL.",
+      "evidence": [
+        {
+          "resource": "repo://.streamlit/config.toml#L1-L7",
+          "version": "repo-lines-v1:sha256:290dbeb839d6eb9943d9c4419cfebc0140254bb45b3164070b6a8ad00c19c7ab:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDI4MGEyOTFlMDgwODg1MjFjNTEzMjc5MzQ5NmM0ZWJhZmZhYmQyMjM3YmQwYjdlYjFjZDY4OTUyNWUzMGQxNiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOTRhYjgxYjhmNWFkYWE2NTUxNjU5NzZlOWY5NWJiYzQzOGVmYzA5NWIyNDRkMDMzNTI2YWIzYTgzZDg2YzhlNyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTA4NDBlNDcxNzUwNDE4YWVmZmNmNmI3NTMzNTVkNjJiNjlhMDExYTlhYTIxZGZhODIwMDdhNDkwMzBkZjM0NiJ9"
+        },
+        {
+          "resource": "repo://src/agentic_document_extraction/semantic.py#L47-L63",
+          "version": "repo-lines-v1:sha256:3063d98a8f601b3576e68bdb7577cffa7ca6e7530ce3d1e7217fd63631e378e7:eyJzZWxlY3RlZExpbmVDb3VudCI6MTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAwMWZhNDM2ZmIzMWJkOTQ5NTI0MTI5ZmM2MWUwNGI3MzAyZWVlN2RlZjM4M2VhZWZkYjhhMTE2NzM3OWY2MzYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY0NTk3ZDBlNTI4N2E4YjgzZmQzYzE3MDA3MjhhMzhjMzNjMjBjNmExNzQ4NTAyMTdjMDE3OWY3NjJlZjhiZDYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY1MTA5NzUwMzVlMTVhMjc3MDU2MTU5NDVkNzFiZGZmZDNlODE2NTE4N2UzYjc0YjEyNjdiMWExZGE1ZjEwN2UiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjY5MTgwOTI5MjVkMGVmMTYyNWQ0NTQwMDg3NGYwN2IwZTM5OGZmMDYwZDZkNzVhNWZhNzBmYWYyOTRlOTcxNDUifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.2",
+    "at": "2026-09-23T14:56:11.943Z"
+  }
+}
